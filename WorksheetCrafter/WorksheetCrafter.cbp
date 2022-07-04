@@ -33,12 +33,11 @@
 		</Compiler>
 		<Unit filename="GUI_manager.c">
 			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="PDF_Generator.c">
 			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="WorksheedCrafter.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
