@@ -36,4 +36,12 @@ void exitApp()
 void MyButtonOneClicked(GtkButton *b)
 {
     printf("Button One is clicked! \n");
+
+    Set_Filename(&worksheed_instanze, 0, "Test3.pdf");
+    Set_Filename(&worksheed_instanze, 1, "Test4.pdf");
+
+    worksheed_instanze.Flag = 1;
+
+
+    //Start_Pdf(&worksheed_instanze);
 }

@@ -11,7 +11,6 @@
 
 
 
-
 /*
 *   This function is a official error handler
 *   Error-codes can be found on the git-hub-repo
@@ -54,21 +53,86 @@ void Write_Text(struct worksheed *worksheed_pointer, int x, int y, char text[20]
     HPDF_Page_BeginText(worksheed_pointer->page[page_count]);
     HPDF_Page_TextOut(worksheed_pointer->page[page_count], x, y, text);
     HPDF_Page_EndText(worksheed_pointer->page[page_count]);
+    printf("Text wurde hinzugefügt\n");
+}
+
+void Set_Filename(struct worksheed *worksheed_pointer, int nummer,  int name[20])
+{
+    sprintf(worksheed_pointer->file_names[nummer], "%s", name);
+    printf("Set_Filename: %s\n", worksheed_pointer->file_names[nummer]);
 }
 
 void Save_Pdf(struct worksheed *worksheed_pointer, char text[])
 {
-    HPDF_SaveToFile(worksheed_pointer->pdf, text);
-    char command[20] = {"okular " };
-    strcat(command, text);
-    system(command);
+    HPDF_SaveToFile(worksheed_instanze.pdf, text);
+    printf("Save_Pdf: %s\n", text);
+}
+
+
+static void *View_PDF_1(void *val)
+{
+    system(worksheed_instanze.file_names_commands[0]);
+    printf("View_PDF_1: %s\n", worksheed_instanze.file_names_commands[0]);
+    return NULL;
+}
+
+static void *View_PDF_2(void *val)
+{
+    system(worksheed_instanze.file_names_commands[1]);
+    printf("View_PDF_2: %s\n", worksheed_instanze.file_names_commands[1]);
+    return NULL;
+}
+
+void Show_PDF(struct worksheed *worksheed_pointer)
+{
+    sprintf(worksheed_instanze.file_names_commands[0], "okular %s", worksheed_instanze.file_names[0]);
+    sprintf(worksheed_instanze.file_names_commands[1], "okular %s", worksheed_instanze.file_names[1]);
+
+    pthread_t thread_id3;
+    pthread_t thread_id4;
+
+    pthread_create(&thread_id3, NULL, &View_PDF_1, NULL);
+    pthread_create(&thread_id4, NULL, &View_PDF_2, NULL);
+
+    pthread_join(thread_id3, NULL);
+    pthread_join(thread_id4, NULL);
+}
+
+void Start_Pdf(struct worksheed *worksheed_pointer)
+{
+    //Generating a new page zero
+    Setup_Page(worksheed_pointer, 0);
+
+    //Wirte some text
+    Write_Text(worksheed_pointer, 100, 100, "Hallo Hallo", 0);
+
+    //Save pdf and show it witch okular viewer
+    //Save_Pdf(&worksheed_instanze, worksheed_instanze->file_names[0]);
+    Save_Pdf(worksheed_pointer, "Test3.pdf");
+
+    //Neue PDF wird erzeugt
+    HPDF_NewDoc(worksheed_pointer->pdf);
+
+
+    //Generatign a new pdf
+    Setup_Page(worksheed_pointer, 1);
+
+    Write_Text(worksheed_pointer, 100, 100, "Servus Servus", 1);
+
+    //Save_Pdf(&worksheed_instanze, worksheed_instanze->file_names[1]);
+    Save_Pdf(worksheed_pointer, "Test4.pdf");
+
+    HPDF_Free(worksheed_pointer->pdf);
+
+
+    Show_PDF(worksheed_pointer);
 }
 
 
 void *Init_Pdf()
 {
     //Init Worksheet-Sturct
-    struct worksheed worksheed_instanze;
+    //struct worksheed worksheed_instanze;
 
     //Initialize a pdf-Doc
     worksheed_instanze.pdf = HPDF_New (Error_Handler, NULL);
@@ -83,27 +147,11 @@ void *Init_Pdf()
         printf("PDF wurde erfolgreich erzeugt \n");
     }
 
-    //Generating a new page zero
-    Setup_Page(&worksheed_instanze, 0);
+    worksheed_instanze.Flag = 0;
 
-    //Wirte some text
-    Write_Text(&worksheed_instanze, 100, 100, "Hallo", 0);
+    while(!worksheed_instanze.Flag){}
 
-    //Save pdf and show it witch okular viewer
-    Save_Pdf(&worksheed_instanze, "test.pdf");
-
-    //Neue PDF wird erzeugt
-    HPDF_NewDoc(worksheed_instanze.pdf);
-
-    //Generatign a new pdf
-    Setup_Page(&worksheed_instanze, 1);
-
-    Write_Text(&worksheed_instanze, 100, 100, "Servus", 1);
-
-    Save_Pdf(&worksheed_instanze, "test2.pdf");
-
-
-    HPDF_Free(worksheed_instanze.pdf);
+    Start_Pdf(&worksheed_instanze);
 
 }
 
