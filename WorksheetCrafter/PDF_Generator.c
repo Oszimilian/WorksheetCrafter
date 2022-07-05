@@ -40,7 +40,9 @@ int Check_Pdf(struct worksheed *worksheed_pointer)
 
     return 0;
 }
-
+/*
+*   Generates a new slide of a pdf or in case of previous called HPDF_NewDoc function it will generate a new pdf
+*/
 void Setup_Page(struct worksheed *worksheed_pointer, int page_count)
 {
     worksheed_pointer->page[page_count] = HPDF_AddPage(worksheed_pointer->pdf);
@@ -48,6 +50,9 @@ void Setup_Page(struct worksheed *worksheed_pointer, int page_count)
     HPDF_Page_SetFontAndSize(worksheed_pointer->page[page_count], font, 14);
 }
 
+/*
+*   Writes some text on the pdf
+*/
 void Write_Text(struct worksheed *worksheed_pointer, int x, int y, char text[20], int page_count)
 {
     HPDF_Page_BeginText(worksheed_pointer->page[page_count]);
@@ -56,85 +61,73 @@ void Write_Text(struct worksheed *worksheed_pointer, int x, int y, char text[20]
     printf("Text wurde hinzugefügt\n");
 }
 
-void Set_Filename(struct worksheed *worksheed_pointer, int nummer,  int name[20])
+/*
+*   Set the filename for task and solution pdf global
+*/
+void Set_Filename(struct worksheed *worksheed_pointer, int nummer,  char name[20])
 {
     sprintf(worksheed_pointer->file_names[nummer], "%s", name);
     printf("Set_Filename: %s\n", worksheed_pointer->file_names[nummer]);
+    sprintf(worksheed_pointer->file_names_commands[0], "okular %s", worksheed_pointer->file_names[0]);
+    sprintf(worksheed_pointer->file_names_commands[1], "okular %s", worksheed_pointer->file_names[1]);
 }
 
+/*
+*   Saves the pdf // it is nesecarely to hand the full file name over .pdf
+*/
 void Save_Pdf(struct worksheed *worksheed_pointer, char text[])
 {
-    HPDF_SaveToFile(worksheed_instanze.pdf, text);
+    //Saves the pdf
+    HPDF_SaveToFile(worksheed_pointer->pdf, text);
     printf("Save_Pdf: %s\n", text);
 }
 
-
-static void *View_PDF_1(void *val)
+/*
+*   Shows the final task-pdf
+*/
+static void *View_PDF_1()
 {
+    //Calling via a System call the okular pdf-viewer
     system(worksheed_instanze.file_names_commands[0]);
     printf("View_PDF_1: %s\n", worksheed_instanze.file_names_commands[0]);
     return NULL;
 }
 
-static void *View_PDF_2(void *val)
+/*
+*   Shows the final solution-pdf
+*/
+static void *View_PDF_2()
 {
+    //Calling via a System call the ocular pdf-viewer
     system(worksheed_instanze.file_names_commands[1]);
     printf("View_PDF_2: %s\n", worksheed_instanze.file_names_commands[1]);
     return NULL;
 }
 
-void Show_PDF(struct worksheed *worksheed_pointer)
+/*
+*   Closes the PDF-Viewer
+*/
+void Close_PDF(struct worksheed *worksheed_pointer)
 {
-    sprintf(worksheed_instanze.file_names_commands[0], "okular %s", worksheed_instanze.file_names[0]);
-    sprintf(worksheed_instanze.file_names_commands[1], "okular %s", worksheed_instanze.file_names[1]);
-
-    pthread_t thread_id3;
-    pthread_t thread_id4;
-
-    pthread_create(&thread_id3, NULL, &View_PDF_1, NULL);
-    pthread_create(&thread_id4, NULL, &View_PDF_2, NULL);
-
-    pthread_join(thread_id3, NULL);
-    pthread_join(thread_id4, NULL);
+    worksheed_pointer->show_flag = 0;
+    system("killall okular");
 }
 
+/*
+*   Will close the Hole Programm
+*/
+void Close_WorksheedCrafter(struct worksheed *worksheed_pointer)
+{
+    Close_PDF(&worksheed_instanze);
+    gtk_main_quit();
+    exit(0);
+}
+
+/*
+*   This Funktion starts the process of generating a math-task-pdf from the beginning till the end
+*/
 void Start_Pdf(struct worksheed *worksheed_pointer)
 {
-    //Generating a new page zero
-    Setup_Page(worksheed_pointer, 0);
-
-    //Wirte some text
-    Write_Text(worksheed_pointer, 100, 100, "Hallo Hallo", 0);
-
-    //Save pdf and show it witch okular viewer
-    //Save_Pdf(&worksheed_instanze, worksheed_instanze->file_names[0]);
-    Save_Pdf(worksheed_pointer, "Test3.pdf");
-
-    //Neue PDF wird erzeugt
-    HPDF_NewDoc(worksheed_pointer->pdf);
-
-
-    //Generatign a new pdf
-    Setup_Page(worksheed_pointer, 1);
-
-    Write_Text(worksheed_pointer, 100, 100, "Servus Servus", 1);
-
-    //Save_Pdf(&worksheed_instanze, worksheed_instanze->file_names[1]);
-    Save_Pdf(worksheed_pointer, "Test4.pdf");
-
-    HPDF_Free(worksheed_pointer->pdf);
-
-
-    Show_PDF(worksheed_pointer);
-}
-
-
-void *Init_Pdf()
-{
-    //Init Worksheet-Sturct
-    //struct worksheed worksheed_instanze;
-
-    //Initialize a pdf-Doc
     worksheed_instanze.pdf = HPDF_New (Error_Handler, NULL);
 
     //Check this pdf-Doc
@@ -147,12 +140,54 @@ void *Init_Pdf()
         printf("PDF wurde erfolgreich erzeugt \n");
     }
 
-    worksheed_instanze.Flag = 0;
+    //Generating a new page zero
+    Setup_Page(worksheed_pointer, 0);
 
-    while(!worksheed_instanze.Flag){}
+    //Wirte some text
+    Write_Text(worksheed_pointer, 100, 100, worksheed_pointer->test_text, 0);
 
-    Start_Pdf(&worksheed_instanze);
+    //Save pdf and show it witch okular viewer
+    //Save_Pdf(&worksheed_instanze, worksheed_instanze->file_names[0]);
+    Save_Pdf(worksheed_pointer, "Test3.pdf");
 
+    //Neue PDF wird erzeugt
+    HPDF_NewDoc(worksheed_pointer->pdf);
+
+
+    //Generatign a new pdf
+    Setup_Page(worksheed_pointer, 1);
+
+    Write_Text(worksheed_pointer, 100, 100,  worksheed_pointer->test_text, 1);
+
+    //Save_Pdf(&worksheed_instanze, worksheed_instanze->file_names[1]);
+    Save_Pdf(worksheed_pointer, "Test4.pdf");
+
+    HPDF_Free(worksheed_pointer->pdf);
+}
+
+/*
+*   This task initialices the base for making the math-pdf and wait for the call to start generating a pdf
+*/
+void *Handle_PDF_Viewer()
+{
+    worksheed_instanze.show_flag = 0;
+    while(1)
+    {
+        while(worksheed_instanze.show_flag)
+        {
+            //initialising tow instanzes of Threads
+            pthread_t thread_id3;
+            pthread_t thread_id4;
+
+            //Creat the Thread and teeling the function the function which have to be execute
+            pthread_create(&thread_id3, NULL, View_PDF_1, NULL);
+            pthread_create(&thread_id4, NULL, View_PDF_2, NULL);
+
+            //Joining the Threads
+            pthread_join(thread_id3, NULL);
+            pthread_join(thread_id4, NULL);
+        }
+    }
 }
 
 

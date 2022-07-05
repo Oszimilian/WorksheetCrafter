@@ -38,6 +38,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="WorksheedCrafter.h" />
+		<Unit filename="Worksheed_Generator.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
