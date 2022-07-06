@@ -19,6 +19,7 @@ void *Start_GUI(void *vargp)
 
     MyWindow1 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyWindow"));
     MyFixed1 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyFixed1"));
+    MyLabel1 = GTK_LABEL(gtk_builder_get_object(MyBuilder, "MyLabel1"));
     MyButton1 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyButton1"));
     MyButton2 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyButton2"));
     MyButton3 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyButton3"));
@@ -26,6 +27,7 @@ void *Start_GUI(void *vargp)
     MyCheckButton2 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyCheckButton2"));
     MyCheckButton3 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyCheckButton3"));
     MyCheckButton4 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyCheckButton4"));
+    MyCheckButton5 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyCheckButton5"));
     MyRadioButton1 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyRadioButton1"));
     MyRadioButton2 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyRadioButton2"));
 
@@ -49,8 +51,8 @@ void MyButton1_Clicked(GtkButton *b)
 
     printf("Button One is clicked! \n");
 
-    Set_Filename(&worksheed_instanze, 0, "Test3.pdf");
-    Set_Filename(&worksheed_instanze, 1, "Test4.pdf");
+    Set_Filename(&worksheed_instanze, 0, "Aufgaben.pdf");
+    Set_Filename(&worksheed_instanze, 1, "Lösungen.pdf");
 
     worksheed_instanze.show_flag = 1;
 
@@ -65,25 +67,26 @@ void MyButton2_Clicked(GtkButton *b)
 void MyCheckButton1_Toggled(GtkCheckButton *b)
 {
     Change_Task_Settings(&worksheed_instanze, _Addition);
-    sprintf(worksheed_instanze.test_text, "Hallo mein Name ist Button1:");
 }
 
 void MyCheckButton2_Toggled(GtkCheckButton *b)
 {
     Change_Task_Settings(&worksheed_instanze, _Subtraction);
-    sprintf(worksheed_instanze.test_text, "Hallo mein Name ist Button2:");
 }
 
 void MyCheckButton3_Toggled(GtkCheckButton *b)
 {
     Change_Task_Settings(&worksheed_instanze, _Multiplication);
-    sprintf(worksheed_instanze.test_text, "Hallo mein Name ist Button3:");
 }
 
 void MyCheckButton4_Toggled(GtkCheckButton *b)
 {
     Change_Task_Settings(&worksheed_instanze, _Division);
-    sprintf(worksheed_instanze.test_text, "Hallo mein Name ist Button4:");
+}
+
+void MyCheckButton5_Toggled(GtkCheckButton *b)
+{
+    Change_Task_Settings(&worksheed_instanze, _Baseboard);
 }
 
 void MyRadioButton1_Toggled(GtkRadioButton *b)

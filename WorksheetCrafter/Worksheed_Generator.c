@@ -22,69 +22,18 @@ void Init_Task_Settings(struct worksheed *worksheed_pointer)
 
     worksheed_pointer->Z_flag = true;
     worksheed_pointer->R_flag = false;
+
+    worksheed_pointer->baseboard_flag = true;
 }
 
 /*
-*   Changes the Setting for generating the math-PDF
+*   Creats a sheed with the asked solutions
 */
-void Change_Task_Settings(struct worksheed *worksheed_pointer, int setting)
+void Create_Task_Sheed(struct worksheed *worksheed_pointer)
 {
-    if(setting == _Addition)
-    {
-        if (worksheed_pointer->addition_flag)
-        {
-            worksheed_pointer->addition_flag = false;
-        }else{
-            worksheed_pointer->addition_flag = true;
-        }
-    }
+    Create_Baseboard(worksheed_pointer, _Tasks);
 
-    if(setting == _Subtraction)
-    {
-        if (worksheed_pointer->subtraction_flag)
-        {
-            worksheed_pointer->subtraction_flag = false;
-        }else{
-            worksheed_pointer->subtraction_flag = true;
-        }
-    }
-
-    if(setting == _Multiplication)
-    {
-        if (worksheed_pointer->multiplication_flag)
-        {
-            worksheed_pointer->multiplication_flag = false;
-        }else{
-            worksheed_pointer->multiplication_flag = true;
-        }
-    }
-
-    if(setting == _Division)
-    {
-        if (worksheed_pointer->division_flag)
-        {
-            worksheed_pointer->division_flag = false;
-        }else{
-            worksheed_pointer->division_flag = true;
-        }
-    }
-
-    if(setting == _Zahlentyp)
-    {
-        if (worksheed_pointer->Z_flag && !worksheed_pointer->R_flag)
-        {
-            worksheed_pointer->Z_flag = false;
-            worksheed_pointer->R_flag = true;
-        }else{
-            worksheed_pointer->Z_flag = true;
-            worksheed_pointer->R_flag = false;
-        }
-    }
-}
-
-void Create_Sheed(struct worksheed *worksheed_pointer)
-{
-    int size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[0]);
+    int size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Tasks]) - worksheed_pointer->baseboard_treashold;
     int task_counter = 0;
     int x;
 
@@ -92,9 +41,9 @@ void Create_Sheed(struct worksheed *worksheed_pointer)
 
     for(int i = 0; i <= 2; i++)
     {
+
         while(size_counter >= 50)
         {
-            size_counter = size_counter - 50;
 
             switch(i)
             {
@@ -106,35 +55,61 @@ void Create_Sheed(struct worksheed *worksheed_pointer)
 
             Create_Random_Task(worksheed_pointer, task_counter);
 
-            Write_Text(worksheed_pointer, x, size_counter, worksheed_pointer->mathTaskArray[task_counter], 0);
+            Write_Text(worksheed_pointer, x, size_counter, worksheed_pointer->mathTaskArray[task_counter], _Tasks);
 
-            Draw_Line(worksheed_pointer, task_counter, x, size_counter, x, size_counter, 0);
+            Draw_Solution_Line(worksheed_pointer, worksheed_pointer->mathTaskArray[task_counter], x, size_counter, 60, _Tasks);
 
             task_counter++;
 
+            size_counter = size_counter - 50;
+
+            printf("Hallo \n");
+
         }
-        size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[0]);
-        printf("i: %d x: %d sc: %d \n", i, x, size_counter);
+
+        size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Tasks]) - worksheed_pointer->baseboard_treashold;
+
     }
 }
 
-void Create_Random_Task(struct worksheed *worksheed_pointer, int counter)
+/*
+*   Creas a sheed with the solutions
+*/
+void Creat_Solution_Sheed(struct worksheed *worksheed_pointer)
 {
-    int max_rand = 1000;
+    Create_Baseboard(worksheed_pointer, _Solutions);
 
-    int first_num = rand() % max_rand;
-    int second_num = rand() % max_rand;
-    int operand = rand() % 4;
-    char task_operand;
+    int size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Solutions]) - worksheed_pointer->baseboard_treashold;
+    int task_counter = 0;
+    int x;
 
-    switch(operand)
+    for(int i = 0; i <= 2; i++)
     {
-        case 0: task_operand = '+'; break;
-        case 1: task_operand = '-'; break;
-        case 2: task_operand = ':'; break;
-        case 3: task_operand = '*'; break;
-        default: break;
+
+        while(size_counter >= 50)
+        {
+
+            switch(i)
+            {
+                case 0: x = HPDF_Page_GetWidth(worksheed_pointer->page[_Solutions]) - (HPDF_Page_GetWidth(worksheed_pointer->page[_Solutions]) * 0.9); break;
+                case 1: x = HPDF_Page_GetWidth(worksheed_pointer->page[_Solutions]) - (HPDF_Page_GetWidth(worksheed_pointer->page[_Solutions]) * 0.6); break;
+                case 2: x = HPDF_Page_GetWidth(worksheed_pointer->page[_Solutions]) - (HPDF_Page_GetWidth(worksheed_pointer->page[_Solutions]) * 0.3); break;
+                default: break;
+            }
+
+            Write_Text(worksheed_pointer, x, size_counter, worksheed_pointer->mathSolutionArray[task_counter], _Solutions);
+
+            task_counter++;
+
+            size_counter = size_counter - 50;
+
+            printf("-> %s \n", worksheed_pointer->mathSolutionArray[task_counter]);
+        }
+
+        size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Solutions]) - worksheed_pointer->baseboard_treashold;
+
     }
 
-    sprintf(worksheed_pointer->mathTaskArray[counter], "%d %c %d = ", first_num, task_operand, second_num);
 }
+
+

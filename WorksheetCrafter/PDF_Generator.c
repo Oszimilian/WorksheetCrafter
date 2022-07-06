@@ -9,136 +9,6 @@
 #include "hpdf.h"
 #include "WorksheedCrafter.h"
 
-
-
-/*
-*   This function is a official error handler
-*   Error-codes can be found on the git-hub-repo
-*/
-void Error_Handler (HPDF_STATUS error_no, HPDF_STATUS detail_no, void *user_data)
-{
-    printf ("ERROR: error_no=%04X, detail_no=%d\n", (unsigned int) error_no, (int) detail_no);
-    longjmp (env, 1); /* invoke longjmp() on error */
-}
-
-/*
-*   This function checks if pointer to the pdf-doc-struct is avalible
-*/
-int Check_Pdf(struct worksheed *worksheed_pointer)
-{
-    if (!worksheed_pointer->pdf)
-    {
-        printf ("ERROR: cannot create pdf object.\n");
-        return 1;
-    }
-
-    if (setjmp(env))
-    {
-        HPDF_Free (worksheed_pointer->pdf);
-        return 1;
-    }
-
-    return 0;
-}
-/*
-*   Generates a new slide of a pdf or in case of previous called HPDF_NewDoc function it will generate a new pdf
-*/
-void Setup_Page(struct worksheed *worksheed_pointer, int page_count)
-{
-    worksheed_pointer->page[page_count] = HPDF_AddPage(worksheed_pointer->pdf);
-    HPDF_Font font = HPDF_GetFont(worksheed_pointer->pdf, "Helvetica", NULL);
-    HPDF_Page_SetFontAndSize(worksheed_pointer->page[page_count], font, 14);
-}
-
-/*
-*   Writes some text on the pdf
-*/
-void Write_Text(struct worksheed *worksheed_pointer, int x, int y, char text[20], int page_count)
-{
-    HPDF_Page_BeginText(worksheed_pointer->page[page_count]);
-    HPDF_Page_TextOut(worksheed_pointer->page[page_count], x, y, text);
-    HPDF_Page_EndText(worksheed_pointer->page[page_count]);
-    printf("Text wurde hinzugefügt\n");
-}
-
-/*
-*   Set the filename for task and solution pdf global
-*/
-void Set_Filename(struct worksheed *worksheed_pointer, int nummer,  char name[20])
-{
-    sprintf(worksheed_pointer->file_names[nummer], "%s", name);
-    printf("Set_Filename: %s\n", worksheed_pointer->file_names[nummer]);
-    sprintf(worksheed_pointer->file_names_commands[0], "okular %s", worksheed_pointer->file_names[0]);
-    sprintf(worksheed_pointer->file_names_commands[1], "okular %s", worksheed_pointer->file_names[1]);
-}
-
-/*
-*   Saves the pdf // it is nesecarely to hand the full file name over .pdf
-*/
-void Save_Pdf(struct worksheed *worksheed_pointer, char text[])
-{
-    //Saves the pdf
-    HPDF_SaveToFile(worksheed_pointer->pdf, text);
-    printf("Save_Pdf: %s\n", text);
-}
-
-/*
-*   Shows the final task-pdf
-*/
-static void *View_PDF_1()
-{
-    //Calling via a System call the okular pdf-viewer
-    system(worksheed_instanze.file_names_commands[0]);
-    printf("View_PDF_1: %s\n", worksheed_instanze.file_names_commands[0]);
-    return NULL;
-}
-
-/*
-*   Shows the final solution-pdf
-*/
-static void *View_PDF_2()
-{
-    //Calling via a System call the ocular pdf-viewer
-    system(worksheed_instanze.file_names_commands[1]);
-    printf("View_PDF_2: %s\n", worksheed_instanze.file_names_commands[1]);
-    return NULL;
-}
-
-/*
-*   Closes the PDF-Viewer
-*/
-void Close_PDF(struct worksheed *worksheed_pointer)
-{
-    worksheed_pointer->show_flag = 0;
-    system("killall okular");
-}
-
-/*
-*   Will close the Hole Programm
-*/
-void Close_WorksheedCrafter(struct worksheed *worksheed_pointer)
-{
-    Close_PDF(&worksheed_instanze);
-    gtk_main_quit();
-    exit(0);
-}
-
-void Draw_Line(struct worksheed *worksheed_pointer,int counter, int x1, int y1, int x2, int y2, int page_counter)
-{
-    int task_lengh = strlen(worksheed_pointer->mathTaskArray[counter]);
-    int line_lengh = 60;
-    int pattern_lengh = 6;
-
-    printf("task_lengh: %d \n", task_lengh);
-
-    x1 = x1 + (task_lengh * pattern_lengh);
-    x2 = x2 + (task_lengh * pattern_lengh) + line_lengh;
-
-    HPDF_Page_MoveTo(worksheed_pointer->page[page_counter], x1, y1);
-    HPDF_Page_LineTo(worksheed_pointer->page[page_counter], x2, y2);
-    HPDF_Page_Stroke(worksheed_pointer->page[page_counter]);
-}
-
 /*
 *   This Funktion starts the process of generating a math-task-pdf from the beginning till the end
 */
@@ -157,28 +27,27 @@ void Start_Pdf(struct worksheed *worksheed_pointer)
     }
 
     //Generating a new page zero
-    Setup_Page(worksheed_pointer, 0);
+    Setup_Page(worksheed_pointer, _Tasks);
 
     //Wirte some text
-    //Write_Text(worksheed_pointer, 100, 100, worksheed_pointer->test_text, 0);
-    Create_Sheed(worksheed_pointer);
+    Create_Task_Sheed(worksheed_pointer);
 
     //Save pdf and show it witch okular viewer
-    //Save_Pdf(&worksheed_instanze, worksheed_instanze->file_names[0]);
-    Save_Pdf(worksheed_pointer, "Test3.pdf");
+    Save_Pdf(worksheed_pointer, _Tasks);
 
     //Neue PDF wird erzeugt
     HPDF_NewDoc(worksheed_pointer->pdf);
 
-
     //Generatign a new pdf
-    Setup_Page(worksheed_pointer, 1);
+    Setup_Page(worksheed_pointer, _Solutions);
 
-    Write_Text(worksheed_pointer, 100, 100,  worksheed_pointer->test_text, 1);
+    //Creates a Solution  - PDF
+    Creat_Solution_Sheed(worksheed_pointer);
 
-    //Save_Pdf(&worksheed_instanze, worksheed_instanze->file_names[1]);
-    Save_Pdf(worksheed_pointer, "Test4.pdf");
+    //Saves the Solution - PDF
+    Save_Pdf(worksheed_pointer, _Solutions);
 
+    //ends the hole progress with generating a pdf
     HPDF_Free(worksheed_pointer->pdf);
 }
 
@@ -205,6 +74,28 @@ void *Handle_PDF_Viewer()
             pthread_join(thread_id4, NULL);
         }
     }
+}
+
+/*
+*   Shows the final task-pdf
+*/
+static void *View_PDF_1()
+{
+    //Calling via a System call the okular pdf-viewer
+    system(worksheed_instanze.file_names_commands[0]);
+    printf("View_PDF_1: %s\n", worksheed_instanze.file_names_commands[0]);
+    return NULL;
+}
+
+/*
+*   Shows the final solution-pdf
+*/
+static void *View_PDF_2()
+{
+    //Calling via a System call the ocular pdf-viewer
+    system(worksheed_instanze.file_names_commands[1]);
+    printf("View_PDF_2: %s\n", worksheed_instanze.file_names_commands[1]);
+    return NULL;
 }
 
 

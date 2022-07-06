@@ -148,6 +148,34 @@
             <property name="y">180</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkLabel" id="MyLabel1">
+            <property name="width_request">250</property>
+            <property name="height_request">150</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Output</property>
+          </object>
+          <packing>
+            <property name="x">406</property>
+            <property name="y">18</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="MyCheckButton5">
+            <property name="label" translatable="yes">Kopfzeile</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="active">True</property>
+            <property name="draw_indicator">True</property>
+            <signal name="toggled" handler="MyCheckButton5_Clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">20</property>
+            <property name="y">250</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
