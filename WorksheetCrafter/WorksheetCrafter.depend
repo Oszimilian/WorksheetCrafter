@@ -2975,7 +2975,7 @@
 
 1644947452 /usr/include/gtk-3.0/gtk/gtk-autocleanups.h
 
-1657063332 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
+1657111681 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
 
 1657062868 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI_manager.c
 	<stdio.h>
@@ -2989,7 +2989,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1657063296 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/PDF_Generator.c
+1657111623 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/PDF_Generator.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3001,7 +3001,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1657063018 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Generator.c
+1657111674 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Generator.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3010,6 +3010,7 @@
 	<string.h>
 	<pthread.h>
 	<unistd.h>
+	<time.h>
 	"hpdf.h"
 	"WorksheedCrafter.h"
 

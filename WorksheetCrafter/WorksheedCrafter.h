@@ -40,7 +40,7 @@ void MyRadioButton2_Toggled(GtkRadioButton *b);
 */
 
 struct worksheed{
-    char mathTaskArray[48][20];
+    char mathTaskArray[50][20];
     HPDF_Doc pdf;
     HPDF_Page page[20];
     char file_names_commands[2][40];
@@ -54,6 +54,7 @@ struct worksheed{
     int division_flag;
     int Z_flag;
     int R_flag;
+
 }worksheed_instanze;
 
 //For jumping through the sourcecode
@@ -69,11 +70,14 @@ static void *View_PDF_1();
 static void *View_PDF_2();
 void Close_PDF(struct worksheed *worksheed_pointer);
 void Close_WorksheedCrafter(struct worksheed *worksheed_pointer);
+void Draw_Line(struct worksheed *worksheed_pointer,int counter, int x1, int y1, int x2, int y2, int page_counter);
 void Start_Pdf(struct worksheed *worksheed_pointer);
 void *Handle_PDF_Viewer();
 
 
 void Init_Task_Settings(struct worksheed *worksheed_pointer);
 void Change_Task_Settings(struct worksheed *worksheed_pointer, int setting);
+void Create_Sheed(struct worksheed *worksheed_pointer);
+void Create_Random_Task(struct worksheed *worksheed_pointer, int counter);
 
 #endif // WORKSHEEDCRAFTER_H_INCLUDED

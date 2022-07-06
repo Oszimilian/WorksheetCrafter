@@ -123,6 +123,22 @@ void Close_WorksheedCrafter(struct worksheed *worksheed_pointer)
     exit(0);
 }
 
+void Draw_Line(struct worksheed *worksheed_pointer,int counter, int x1, int y1, int x2, int y2, int page_counter)
+{
+    int task_lengh = strlen(worksheed_pointer->mathTaskArray[counter]);
+    int line_lengh = 60;
+    int pattern_lengh = 6;
+
+    printf("task_lengh: %d \n", task_lengh);
+
+    x1 = x1 + (task_lengh * pattern_lengh);
+    x2 = x2 + (task_lengh * pattern_lengh) + line_lengh;
+
+    HPDF_Page_MoveTo(worksheed_pointer->page[page_counter], x1, y1);
+    HPDF_Page_LineTo(worksheed_pointer->page[page_counter], x2, y2);
+    HPDF_Page_Stroke(worksheed_pointer->page[page_counter]);
+}
+
 /*
 *   This Funktion starts the process of generating a math-task-pdf from the beginning till the end
 */
@@ -144,7 +160,8 @@ void Start_Pdf(struct worksheed *worksheed_pointer)
     Setup_Page(worksheed_pointer, 0);
 
     //Wirte some text
-    Write_Text(worksheed_pointer, 100, 100, worksheed_pointer->test_text, 0);
+    //Write_Text(worksheed_pointer, 100, 100, worksheed_pointer->test_text, 0);
+    Create_Sheed(worksheed_pointer);
 
     //Save pdf and show it witch okular viewer
     //Save_Pdf(&worksheed_instanze, worksheed_instanze->file_names[0]);
