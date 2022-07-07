@@ -100,7 +100,7 @@ void Draw_Solution_Line(struct worksheed *worksheed_pointer,char tmp[], int x1, 
     int x2 = x1;
     int y2 = y1;
 
-    printf("Task_Lengh: %d", task_lengh);
+    //printf("Task_Lengh: %d -> %s \n", task_lengh, tmp);
 
     x1 = x1 + (task_lengh * pattern_lengh);
     x2 = x2 + (task_lengh * pattern_lengh) + line_lengh;

@@ -31,6 +31,15 @@ GtkWidget *MyCheckButton4;
 GtkWidget *MyCheckButton5;
 GtkWidget *MyRadioButton1;
 GtkWidget *MyRadioButton2;
+GtkWidget *MySpinButton1;
+GtkWidget *MySpinButton2;
+GtkWidget *MySpinButton3;
+GtkWidget *MySpinButton4;
+GtkWidget *MySpinButton5;
+GtkWidget *MySpinButton6;
+GtkWidget *MySpinButton7;
+GtkWidget *MySpinButton8;
+GtkWidget *MySpinButton9;
 
 void *Start_GUI(void *vargp);
 void exitApp();
@@ -42,11 +51,23 @@ void MyCheckButton4_Toggled(GtkCheckButton *b);
 void MyCheckButton5_Toggled(GtkCheckButton *b);
 void MyRadioButton1_Toggled(GtkRadioButton *b);
 void MyRadioButton2_Toggled(GtkRadioButton *b);
+void MySpinButton1_Changed(GtkSpinButton *s);
+void MySpinButton2_Changed(GtkSpinButton *s);
+void MySpinButton3_Changed(GtkSpinButton *s);
+void MySpinButton4_Changed(GtkSpinButton *s);
+void MySpinButton5_Changed(GtkSpinButton *s);
+void MySpinButton6_Changed(GtkSpinButton *s);
+void MySpinButton7_Changed(GtkSpinButton *s);
+void MySpinButton8_Changed(GtkSpinButton *s);
+void MySpinButton9_Changed(GtkSpinButton *s);
+
 
 
 /*
 *   Struct for the PDF
 */
+
+
 
 struct worksheed{
     char mathTaskArray[50][40];
@@ -65,8 +86,23 @@ struct worksheed{
     int Z_flag;
     int R_flag;
 
+    int number_range;
+    int number_addition_digit_1;
+    int number_addition_digit_2;
+    int number_subtraction_digit_1;
+    int number_subtraction_digit_2;
+    int number_multiplication_digit_1;
+    int number_multiplication_digit_2;
+    int number_division_digit_1;
+    int number_division_digit_2;
+    int decimal_places;
+
     int baseboard_flag;
     int baseboard_treashold;
+
+    int init_complete;
+    int update_decimal_places;
+    int update_number_type;
 }worksheed_instanze;
 
 //For jumping through the sourcecode
@@ -86,9 +122,12 @@ void Draw_Solution_Line(struct worksheed *worksheed_pointer,char tmp[], int x1, 
 void Draw_Line(struct worksheed *worksheed_pointer, int x1, int y1, int x2, int y2, int page_counter);
 void Start_Pdf(struct worksheed *worksheed_pointer);
 void *Handle_PDF_Viewer();
+void *Handle_Worksheed();
+void Update_Number_Type(struct worksheed *worksheed_pointer);
+void Update_Decimal_Places(struct worksheed *worksheed_pointer);
 
 
-void Init_Task_Settings(struct worksheed *worksheed_pointer);
+int Init_Task_Settings(struct worksheed *worksheed_pointer);
 void Change_Task_Settings(struct worksheed *worksheed_pointer, int setting);
 void Create_Task_Sheed(struct worksheed *worksheed_pointer);
 void Creat_Solution_Sheed(struct worksheed *worksheed_pointer);

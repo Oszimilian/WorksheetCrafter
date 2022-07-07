@@ -32,6 +32,7 @@ void Start_Pdf(struct worksheed *worksheed_pointer)
     //Wirte some text
     Create_Task_Sheed(worksheed_pointer);
 
+
     //Save pdf and show it witch okular viewer
     Save_Pdf(worksheed_pointer, _Tasks);
 
@@ -49,6 +50,8 @@ void Start_Pdf(struct worksheed *worksheed_pointer)
 
     //ends the hole progress with generating a pdf
     HPDF_Free(worksheed_pointer->pdf);
+
+
 }
 
 /*

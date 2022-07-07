@@ -13,7 +13,7 @@
 /*
 *   Initialise the settings for the math-PDF
 */
-void Init_Task_Settings(struct worksheed *worksheed_pointer)
+int Init_Task_Settings(struct worksheed *worksheed_pointer)
 {
     worksheed_pointer->addition_flag = true;
     worksheed_pointer->subtraction_flag = true;
@@ -24,6 +24,22 @@ void Init_Task_Settings(struct worksheed *worksheed_pointer)
     worksheed_pointer->R_flag = false;
 
     worksheed_pointer->baseboard_flag = true;
+
+    worksheed_pointer->number_range = 100;
+    worksheed_pointer->number_addition_digit_1 = 3;
+    worksheed_pointer->number_addition_digit_2 = 3;
+    worksheed_pointer->number_subtraction_digit_1 = 3;
+    worksheed_pointer->number_subtraction_digit_2 = 3;
+    worksheed_pointer->number_multiplication_digit_1 = 3;
+    worksheed_pointer->number_multiplication_digit_2 = 3;
+    worksheed_pointer->number_division_digit_1 = 3;
+    worksheed_pointer->number_division_digit_2 = 3;
+    worksheed_pointer->decimal_places = 0;
+
+    worksheed_pointer->update_decimal_places = false;
+    worksheed_pointer->update_number_type = false;
+
+    return 1;
 }
 
 /*
@@ -63,13 +79,12 @@ void Create_Task_Sheed(struct worksheed *worksheed_pointer)
 
             size_counter = size_counter - 50;
 
-            printf("Hallo \n");
-
         }
 
         size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Tasks]) - worksheed_pointer->baseboard_treashold;
 
     }
+
 }
 
 /*
@@ -103,7 +118,7 @@ void Creat_Solution_Sheed(struct worksheed *worksheed_pointer)
 
             size_counter = size_counter - 50;
 
-            printf("-> %s \n", worksheed_pointer->mathSolutionArray[task_counter]);
+            //printf("-> %s \n", worksheed_pointer->mathSolutionArray[task_counter]);
         }
 
         size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Solutions]) - worksheed_pointer->baseboard_treashold;
