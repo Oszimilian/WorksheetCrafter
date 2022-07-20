@@ -17,7 +17,7 @@
 #define _Baseboard 5
 
 
-GtkWidget *MyBuilder;
+GtkBuilder *MyBuilder;
 GtkWidget *MyWindow1;
 GtkWidget *MyFixed1;
 GtkLabel  *MyLabel1;
@@ -114,8 +114,7 @@ void Setup_Page(struct worksheed *worksheed_pointer, int page_count);
 void Write_Text(struct worksheed *worksheed_pointer, int x, int y, char text[20], int page_count);
 void Set_Filename(struct worksheed *worksheed_pointer, int nummer,  char name[20]);
 void Save_Pdf(struct worksheed *worksheed_pointer, int page_count);
-static void *View_PDF_1();
-static void *View_PDF_2();
+
 void Close_PDF(struct worksheed *worksheed_pointer);
 void Close_WorksheedCrafter(struct worksheed *worksheed_pointer);
 void Draw_Solution_Line(struct worksheed *worksheed_pointer,char tmp[], int x1, int y1, int line_lengh, int page_counter);
@@ -132,5 +131,7 @@ void Change_Task_Settings(struct worksheed *worksheed_pointer, int setting);
 void Create_Task_Sheed(struct worksheed *worksheed_pointer);
 void Creat_Solution_Sheed(struct worksheed *worksheed_pointer);
 void Create_Random_Task(struct worksheed *worksheed_pointer, int counter);
+
+void Create_Baseboard(struct worksheed *worksheed_pointer, int page_counter);
 
 #endif // WORKSHEEDCRAFTER_H_INCLUDED

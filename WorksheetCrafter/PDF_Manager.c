@@ -55,7 +55,7 @@ void Setup_Page(struct worksheed *worksheed_pointer, int page_count)
 */
 void Set_Filename(struct worksheed *worksheed_pointer, int nummer,  char name[20])
 {
-    sprintf(worksheed_pointer->file_names[nummer], "%s", name);
+    sprintf(worksheed_pointer->file_names[nummer], "PDF/%s", name);
     printf("Set_Filename: %s\n", worksheed_pointer->file_names[nummer]);
     sprintf(worksheed_pointer->file_names_commands[0], "okular %s", worksheed_pointer->file_names[0]);
     sprintf(worksheed_pointer->file_names_commands[1], "okular %s", worksheed_pointer->file_names[1]);

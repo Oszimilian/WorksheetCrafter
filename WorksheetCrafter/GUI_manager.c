@@ -13,6 +13,7 @@
 
 void *Start_GUI(void *vargp)
 {
+
     gtk_init(NULL, NULL);
 
     MyBuilder = gtk_builder_new_from_file("MyApp.glade");
@@ -47,6 +48,8 @@ void *Start_GUI(void *vargp)
     gtk_widget_show(MyWindow1);
 
     gtk_main();
+
+    return EXIT_SUCCESS;
 }
 
 void exitApp()

@@ -51,13 +51,18 @@ BT
 ET
 BT
 416 775 Td
+<<<<<<< HEAD:WorksheetCrafter/Aufgaben.pdf
 (Datum: 19.7.2022) Tj
+=======
+(Datum: 20.7.2022) Tj
+>>>>>>> 1c637b9b5973e8a9a9d88789f50cdbc62c3a3eca:WorksheetCrafter/PDF/Aufgaben.pdf
 ET
 50 750 m
 545 750 l
 S
 BT
 59 691 Td
+<<<<<<< HEAD:WorksheetCrafter/Aufgaben.pdf
 (28569 - 443 = ) Tj
 ET
 149 691 m
@@ -311,12 +316,268 @@ S
 BT
 416 191 Td
 (16821 - 4 = ) Tj
+=======
+(255 - 954 = ) Tj
+ET
+137 691 m
+197 691 l
+S
+BT
+59 641 Td
+(325 : 479 = ) Tj
+ET
+137 641 m
+197 641 l
+S
+BT
+59 591 Td
+(386 : 350 = ) Tj
+ET
+137 591 m
+197 591 l
+S
+BT
+59 541 Td
+(799 - 919 = ) Tj
+ET
+137 541 m
+197 541 l
+S
+BT
+59 491 Td
+(842 : 120 = ) Tj
+ET
+137 491 m
+197 491 l
+S
+BT
+59 441 Td
+(766 : 746 = ) Tj
+ET
+137 441 m
+197 441 l
+S
+BT
+59 391 Td
+(683 : 14 = ) Tj
+ET
+131 391 m
+191 391 l
+S
+BT
+59 341 Td
+(641 + 564 = ) Tj
+ET
+137 341 m
+197 341 l
+S
+BT
+59 291 Td
+(915 - 642 = ) Tj
+ET
+137 291 m
+197 291 l
+S
+BT
+59 241 Td
+(888 : 837 = ) Tj
+ET
+137 241 m
+197 241 l
+S
+BT
+59 191 Td
+(197 - 92 = ) Tj
+ET
+131 191 m
+191 191 l
+S
+BT
+59 141 Td
+(117 : 769 = ) Tj
+ET
+137 141 m
+197 141 l
+S
+BT
+59 91 Td
+(940 : 508 = ) Tj
+ET
+137 91 m
+197 91 l
+S
+BT
+238 691 Td
+(766 - 307 = ) Tj
+ET
+316 691 m
+376 691 l
+S
+BT
+238 641 Td
+(965 - 501 = ) Tj
+ET
+316 641 m
+376 641 l
+S
+BT
+238 591 Td
+(548 - 619 = ) Tj
+ET
+316 591 m
+376 591 l
+S
+BT
+238 541 Td
+(840 + 654 = ) Tj
+ET
+316 541 m
+376 541 l
+S
+BT
+238 491 Td
+(732 * 296 = ) Tj
+ET
+316 491 m
+376 491 l
+S
+BT
+238 441 Td
+(541 * 563 = ) Tj
+ET
+316 441 m
+376 441 l
+S
+BT
+238 391 Td
+(728 - 451 = ) Tj
+ET
+316 391 m
+376 391 l
+S
+BT
+238 341 Td
+(417 * 648 = ) Tj
+ET
+316 341 m
+376 341 l
+S
+BT
+238 291 Td
+(709 * 117 = ) Tj
+ET
+316 291 m
+376 291 l
+S
+BT
+238 241 Td
+(184 : 58 = ) Tj
+ET
+310 241 m
+370 241 l
+S
+BT
+238 191 Td
+(9 : 176 = ) Tj
+ET
+304 191 m
+364 191 l
+S
+BT
+238 141 Td
+(754 * 141 = ) Tj
+ET
+316 141 m
+376 141 l
+S
+BT
+238 91 Td
+(620 + 690 = ) Tj
+ET
+316 91 m
+376 91 l
+S
+BT
+416 691 Td
+(584 : 882 = ) Tj
+ET
+494 691 m
+554 691 l
+S
+BT
+416 641 Td
+(562 * 614 = ) Tj
+ET
+494 641 m
+554 641 l
+S
+BT
+416 591 Td
+(457 * 507 = ) Tj
+ET
+494 591 m
+554 591 l
+S
+BT
+416 541 Td
+(346 - 587 = ) Tj
+ET
+494 541 m
+554 541 l
+S
+BT
+416 491 Td
+(720 + 5 = ) Tj
+ET
+482 491 m
+542 491 l
+S
+BT
+416 441 Td
+(890 + 66 = ) Tj
+ET
+488 441 m
+548 441 l
+S
+BT
+416 391 Td
+(477 * 250 = ) Tj
+ET
+494 391 m
+554 391 l
+S
+BT
+416 341 Td
+(573 + 259 = ) Tj
+ET
+494 341 m
+554 341 l
+S
+BT
+416 291 Td
+(679 + 14 = ) Tj
+ET
+488 291 m
+548 291 l
+S
+BT
+416 241 Td
+(287 - 986 = ) Tj
+ET
+494 241 m
+554 241 l
+S
+BT
+416 191 Td
+(515 : 922 = ) Tj
+>>>>>>> 1c637b9b5973e8a9a9d88789f50cdbc62c3a3eca:WorksheetCrafter/PDF/Aufgaben.pdf
 ET
 494 191 m
 554 191 l
 S
 BT
 416 141 Td
+<<<<<<< HEAD:WorksheetCrafter/Aufgaben.pdf
 (79366 - 967 = ) Tj
 ET
 506 141 m
@@ -328,12 +589,29 @@ BT
 ET
 500 91 m
 560 91 l
+=======
+(397 - 484 = ) Tj
+ET
+494 141 m
+554 141 l
+S
+BT
+416 91 Td
+(927 : 293 = ) Tj
+ET
+494 91 m
+554 91 l
+>>>>>>> 1c637b9b5973e8a9a9d88789f50cdbc62c3a3eca:WorksheetCrafter/PDF/Aufgaben.pdf
 S
 
 endstream
 endobj
 6 0 obj
+<<<<<<< HEAD:WorksheetCrafter/Aufgaben.pdf
 2418
+=======
+2342
+>>>>>>> 1c637b9b5973e8a9a9d88789f50cdbc62c3a3eca:WorksheetCrafter/PDF/Aufgaben.pdf
 endobj
 7 0 obj
 <<
@@ -351,8 +629,13 @@ xref
 0000000123 00000 n
 0000000187 00000 n
 0000000363 00000 n
+<<<<<<< HEAD:WorksheetCrafter/Aufgaben.pdf
 0000002835 00000 n
 0000002855 00000 n
+=======
+0000002759 00000 n
+0000002779 00000 n
+>>>>>>> 1c637b9b5973e8a9a9d88789f50cdbc62c3a3eca:WorksheetCrafter/PDF/Aufgaben.pdf
 trailer
 <<
 /Root 1 0 R
@@ -360,5 +643,9 @@ trailer
 /Size 8
 >>
 startxref
+<<<<<<< HEAD:WorksheetCrafter/Aufgaben.pdf
 2953
+=======
+2877
+>>>>>>> 1c637b9b5973e8a9a9d88789f50cdbc62c3a3eca:WorksheetCrafter/PDF/Aufgaben.pdf
 %%EOF
