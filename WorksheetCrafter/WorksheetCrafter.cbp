@@ -31,20 +31,20 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="GUI_manager.c">
+		<Unit filename="Background.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="PDF_Generator.c">
+		<Unit filename="GUI.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="PDF_Manager.c">
+		<Unit filename="PDF.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="WorksheedCrafter.h" />
-		<Unit filename="Worksheed_Generator.c">
+		<Unit filename="Worksheed_Adjust.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Worksheed_Manager.c">
+		<Unit filename="Worksheet_Creat.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="main.c">

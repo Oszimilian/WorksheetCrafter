@@ -14,7 +14,7 @@
 
 
 
-int main(int *argc, char *argv[])
+int main()
 {
     worksheed_instanze.init_complete = false;
 
@@ -37,14 +37,6 @@ int main(int *argc, char *argv[])
     //exit(0);
 }
 
-/*
-*   Will close the Hole Programm
-*/
-void Close_WorksheedCrafter(struct worksheed *worksheed_pointer)
-{
-    Close_PDF(&worksheed_instanze);
-    gtk_main_quit();
-    exit(0);
-}
+
 
 

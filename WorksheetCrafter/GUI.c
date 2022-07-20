@@ -47,6 +47,8 @@ void *Start_GUI(void *vargp)
     gtk_widget_show(MyWindow1);
 
     gtk_main();
+
+    return EXIT_SUCCESS;
 }
 
 void exitApp()
@@ -192,5 +194,64 @@ void MySpinButton7_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton7));
     worksheed_instanze.number_division_digit_2 = (int)spin_value;
+}
+
+/*
+*   This task initialices the base for making the math-pdf and wait for the call to start generating a pdf
+*/
+
+/*
+*   Shows the final task-pdf
+*/
+static void *View_PDF_1()
+{
+    //Calling via a System call the okular pdf-viewer
+    system(worksheed_instanze.file_names_commands[0]);
+    printf("View_PDF_1: %s\n", worksheed_instanze.file_names_commands[0]);
+    return NULL;
+}
+
+/*
+*   Shows the final solution-pdf
+*/
+static void *View_PDF_2()
+{
+    //Calling via a System call the ocular pdf-viewer
+    system(worksheed_instanze.file_names_commands[1]);
+    printf("View_PDF_2: %s\n", worksheed_instanze.file_names_commands[1]);
+    return NULL;
+}
+void *Handle_PDF_Viewer()
+{
+    worksheed_instanze.show_flag = 0;
+    while(1)
+    {
+        while(worksheed_instanze.show_flag)
+        {
+            //initialising tow instanzes of Threads
+            pthread_t thread_id3;
+            pthread_t thread_id4;
+
+            //Creat the Thread and teeling the function the function which have to be execute
+            pthread_create(&thread_id3, NULL, View_PDF_1, NULL);
+            pthread_create(&thread_id4, NULL, View_PDF_2, NULL);
+
+            //Joining the Threads
+            pthread_join(thread_id3, NULL);
+            pthread_join(thread_id4, NULL);
+        }
+    }
+}
+
+
+
+/*
+*   Will close the Hole Programm
+*/
+void Close_WorksheedCrafter(struct worksheed *worksheed_pointer)
+{
+    Close_PDF(&worksheed_instanze);
+    gtk_main_quit();
+    exit(0);
 }
 
