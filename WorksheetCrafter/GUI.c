@@ -11,7 +11,7 @@
 
 
 
-void *Start_GUI(void *vargp)
+void *WCO_GUI_Start(void *vargp)
 {
 
     gtk_init(NULL, NULL);
@@ -41,7 +41,7 @@ void *Start_GUI(void *vargp)
     MySpinButton8 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton8"));
     MySpinButton9 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton9"));
 
-    worksheed_instanze.init_complete = Init_Task_Settings(&worksheed_instanze);
+    worksheed_instanze.init_complete = WCO_Worksheet_Adjust_InitWorksheetSettings(&worksheed_instanze);
 
     gtk_builder_connect_signals(MyBuilder, NULL);
 
@@ -54,56 +54,58 @@ void *Start_GUI(void *vargp)
 
 void exitApp()
 {
-    Close_WorksheedCrafter(&worksheed_instanze);
+    WCO_GUI_ClosePDF(&worksheed_instanze);
 }
 
 void MyButton1_Clicked(GtkButton *b)
 {
-    //worksheed_instanze.show_flag = 0;
+    worksheed_instanze.WCO_GUI_showPDFViewerFlag = 0;
 
     printf("Button One is clicked! \n");
 
-    Set_Filename(&worksheed_instanze, 0, "Aufgaben.pdf");
-    Set_Filename(&worksheed_instanze, 1, "Lösungen.pdf");
+    WCO_PDF_SetFilename(&worksheed_instanze, 0, "Aufgaben.pdf");
+    WCO_PDF_SetFilename(&worksheed_instanze, 1, "Lösungen.pdf");
 
-    worksheed_instanze.show_flag = 1;
+    worksheed_instanze.WCO_GUI_showPDFViewerFlag = 1;
 
-    Start_Pdf(&worksheed_instanze);
+    WCO_Worksheet_Create_Start(&worksheed_instanze);
+
+
 }
 
 void MyButton2_Clicked(GtkButton *b)
 {
-    Close_PDF(&worksheed_instanze);
+    WCO_GUI_ClosePDFViewer(&worksheed_instanze);
 }
 
 void MyCheckButton1_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Addition);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Addition);
 }
 
 void MyCheckButton2_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Subtraction);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Subtraction);
 }
 
 void MyCheckButton3_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Multiplication);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Multiplication);
 }
 
 void MyCheckButton4_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Division);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Division);
 }
 
 void MyCheckButton5_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Baseboard);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Baseboard);
 }
 
 void MyRadioButton1_Toggled(GtkRadioButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Zahlentyp);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Zahlentyp);
     worksheed_instanze.update_number_type = false;
 }
 
@@ -116,8 +118,8 @@ void MyRadioButton2_Toggled(GtkRadioButton *b)
 void MySpinButton1_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton1));
-    worksheed_instanze.decimal_places = (int)spin_value;
-    worksheed_instanze.update_decimal_places = false;
+    worksheed_instanze.WCO_Worksheet_decimalPlaces = (int)spin_value;
+    worksheed_instanze.update_WCO_Worksheet_decimalPlaces = false;
 }
 
 
@@ -129,7 +131,7 @@ void MySpinButton1_Changed(GtkSpinButton *s)
 void MySpinButton2_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton2));
-    worksheed_instanze.number_addition_digit_1 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number1_additionDigit = (int)spin_value;
 }
 
 /*
@@ -138,7 +140,7 @@ void MySpinButton2_Changed(GtkSpinButton *s)
 void MySpinButton8_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton8));
-    worksheed_instanze.number_addition_digit_2 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number2_additionDigit = (int)spin_value;
 }
 
 /*
@@ -147,7 +149,7 @@ void MySpinButton8_Changed(GtkSpinButton *s)
 void MySpinButton5_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton5));
-    worksheed_instanze.number_subtraction_digit_1 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number1_subtractionDigit = (int)spin_value;
 }
 
 /*
@@ -156,7 +158,7 @@ void MySpinButton5_Changed(GtkSpinButton *s)
 void MySpinButton9_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton9));
-    worksheed_instanze.number_subtraction_digit_2 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number2_subtractionDigit = (int)spin_value;
 }
 
 /*
@@ -165,8 +167,8 @@ void MySpinButton9_Changed(GtkSpinButton *s)
 void MySpinButton3_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton3));
-    worksheed_instanze.number_multiplication_digit_1 = (int)spin_value;
-    worksheed_instanze.update_decimal_places = false;
+    worksheed_instanze.WCO_Worksheet_number1_multiplicationDigit = (int)spin_value;
+    worksheed_instanze.update_WCO_Worksheet_decimalPlaces = false;
 }
 
 /*
@@ -175,8 +177,8 @@ void MySpinButton3_Changed(GtkSpinButton *s)
 void MySpinButton4_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton4));
-    worksheed_instanze.number_multiplication_digit_2 = (int)spin_value;
-    worksheed_instanze.update_decimal_places = false;
+    worksheed_instanze.WCO_Worksheet_number2_multiplicationDigit = (int)spin_value;
+    worksheed_instanze.update_WCO_Worksheet_decimalPlaces = false;
 }
 
 /*
@@ -185,7 +187,7 @@ void MySpinButton4_Changed(GtkSpinButton *s)
 void MySpinButton6_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton6));
-    worksheed_instanze.number_division_digit_1 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number1_divisionDigit = (int)spin_value;
 }
 
 /*
@@ -194,6 +196,75 @@ void MySpinButton6_Changed(GtkSpinButton *s)
 void MySpinButton7_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton7));
-    worksheed_instanze.number_division_digit_2 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number2_divisionDigit = (int)spin_value;
+}
+
+/*
+*   This task initialices the base for making the math-pdf and wait for the call to start generating a pdf
+*/
+
+/*
+*   Shows the final task-pdf
+*/
+static void *WCO_GUI_PDFViewer_1_Start()
+{
+    //Calling via a System call the okular pdf-viewer
+    system(worksheed_instanze.WCO_PDF_fileNamesCommand[0]);
+    printf("View_PDF_1: %s\n", worksheed_instanze.WCO_PDF_fileNamesCommand[0]);
+    return NULL;
+}
+
+/*
+*   Shows the final solution-pdf
+*/
+static void *WCO_GUI_PDFViewer_2_Start()
+{
+    //Calling via a System call the ocular pdf-viewer
+    system(worksheed_instanze.WCO_PDF_fileNamesCommand[1]);
+    printf("View_PDF_2: %s\n", worksheed_instanze.WCO_PDF_fileNamesCommand[1]);
+    return NULL;
+}
+
+void *WCO_GUI_PDFViewer()
+{
+    worksheed_instanze.WCO_GUI_showPDFViewerFlag = 0;
+    while(1)
+    {
+        while(worksheed_instanze.WCO_GUI_showPDFViewerFlag)
+        {
+            //initialising tow instanzes of Threads
+            pthread_t thread_id3;
+            pthread_t thread_id4;
+
+            //Creat the Thread and teeling the function the function which have to be execute
+            pthread_create(&thread_id3, NULL, WCO_GUI_PDFViewer_1_Start, NULL);
+            pthread_create(&thread_id4, NULL, WCO_GUI_PDFViewer_2_Start, NULL);
+
+            //Joining the Threads
+            pthread_join(thread_id3, NULL);
+            pthread_join(thread_id4, NULL);
+        }
+    }
+}
+
+
+
+/*
+*   Will close the Hole Programm
+*/
+void WCO_GUI_ClosePDF(struct worksheed *worksheed_pointer)
+{
+    WCO_GUI_ClosePDFViewer(&worksheed_instanze);
+    gtk_main_quit();
+    exit(0);
+}
+
+/*
+*   Closes the PDF-Viewer
+*/
+void WCO_GUI_ClosePDFViewer(struct worksheed *worksheed_pointer)
+{
+    worksheed_pointer->WCO_GUI_showPDFViewerFlag = 0;
+    system("killall okular");
 }
 

@@ -1,5 +1,19 @@
 # depslib dependency file v1.0
-1658333378 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/main.c
+140733924759856 <<<<<<< HEAD
+
+1658356263 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/main.c
+	<stdio.h>
+	<stdlib.h>
+	<gtk/gtk.h>
+	<time.h>
+	<setjmp.h>
+	<string.h>
+	<pthread.h>
+	<unistd.h>
+	"hpdf.h"
+	"WorksheedCrafter.h"
+
+1658355601 eFunktionsnamen
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -2975,9 +2989,9 @@
 
 1644947452 /usr/include/gtk-3.0/gtk/gtk-autocleanups.h
 
-1658333378 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
-
 1658263568 D
+
+1658356349 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
 
 1658333378 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI_manager.c
 	<stdio.h>
@@ -3062,6 +3076,69 @@
 	<pthread.h>
 	<unistd.h>
 	<time.h>
+	"hpdf.h"
+	"WorksheedCrafter.h"
+
+1658356082 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Background.c
+	<stdio.h>
+	<stdlib.h>
+	<gtk/gtk.h>
+	<time.h>
+	<setjmp.h>
+	<string.h>
+	<pthread.h>
+	<unistd.h>
+	<time.h>
+	"hpdf.h"
+	"WorksheedCrafter.h"
+
+1658356082 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/PDF.c
+	<stdio.h>
+	<stdlib.h>
+	<gtk/gtk.h>
+	<time.h>
+	<setjmp.h>
+	<string.h>
+	<pthread.h>
+	<unistd.h>
+	<time.h>
+	"hpdf.h"
+	"WorksheedCrafter.h"
+
+1658356082 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Adjust.c
+	<stdio.h>
+	<stdlib.h>
+	<gtk/gtk.h>
+	<time.h>
+	<setjmp.h>
+	<string.h>
+	<pthread.h>
+	<unistd.h>
+	<time.h>
+	"hpdf.h"
+	"WorksheedCrafter.h"
+
+1658356082 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheet_Creat.c
+	<stdio.h>
+	<stdlib.h>
+	<gtk/gtk.h>
+	<time.h>
+	<setjmp.h>
+	<string.h>
+	<pthread.h>
+	<unistd.h>
+	"hpdf.h"
+	"WorksheedCrafter.h"
+
+1658356082 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI.c
+	<stdio.h>
+	<stdlib.h>
+	<gtk/gtk.h>
+	<time.h>
+	<setjmp.h>
+	<string.h>
+	<pthread.h>
+	<unistd.h>
 	"hpdf.h"
 	"WorksheedCrafter.h"
 

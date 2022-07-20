@@ -14,20 +14,20 @@
 
 
 
+
 int main(void)
 {
     worksheed_instanze.init_complete = false;
 
-    sprintf(worksheed_instanze.test_text, "Mein Name ist Main: \n");
 
     pthread_t thread_id1;
     pthread_t thread_id2;
     pthread_t thread_id5;
 
 
-    pthread_create(&thread_id1, NULL, Handle_PDF_Viewer, NULL);
-    pthread_create(&thread_id2, NULL, Start_GUI, NULL);
-    pthread_create(&thread_id5, NULL, Handle_Worksheed, NULL);
+    pthread_create(&thread_id1, NULL, WCO_GUI_PDFViewer, NULL);
+    pthread_create(&thread_id2, NULL, WCO_GUI_Start, NULL);
+    pthread_create(&thread_id5, NULL, WCO_Background_Handle, NULL);
 
     pthread_join(thread_id1, NULL);
     pthread_join(thread_id2, NULL);
@@ -37,14 +37,6 @@ int main(void)
     //exit(0);
 }
 
-/*
-*   Will close the Hole Programm
-*/
-void Close_WorksheedCrafter(struct worksheed *worksheed_pointer)
-{
-    Close_PDF(&worksheed_instanze);
-    gtk_main_quit();
-    exit(0);
-}
+
 
 

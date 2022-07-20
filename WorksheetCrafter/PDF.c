@@ -23,7 +23,7 @@ void Error_Handler (HPDF_STATUS error_no, HPDF_STATUS detail_no, void *user_data
 /*
 *   This function checks if pointer to the pdf-doc-struct is avalible
 */
-int Check_Pdf(struct worksheed *worksheed_pointer)
+int WCO_PDF_Check(struct worksheed *worksheed_pointer)
 {
     if (!worksheed_pointer->pdf)
     {
@@ -43,7 +43,7 @@ int Check_Pdf(struct worksheed *worksheed_pointer)
 /*
 *   Generates a new slide of a pdf or in case of previous called HPDF_NewDoc function it will generate a new pdf
 */
-void Setup_Page(struct worksheed *worksheed_pointer, int page_count)
+void WCO_PDF_SetupPage(struct worksheed *worksheed_pointer, int page_count)
 {
     worksheed_pointer->page[page_count] = HPDF_AddPage(worksheed_pointer->pdf);
     HPDF_Font font = HPDF_GetFont(worksheed_pointer->pdf, "Helvetica", NULL);
@@ -53,18 +53,19 @@ void Setup_Page(struct worksheed *worksheed_pointer, int page_count)
 /*
 *   Set the filename for task and solution pdf global
 */
-void Set_Filename(struct worksheed *worksheed_pointer, int nummer,  char name[20])
+void WCO_PDF_SetFilename(struct worksheed *worksheed_pointer, int nummer,  char name[20])
 {
-    sprintf(worksheed_pointer->file_names[nummer], "PDF/%s", name);
-    printf("Set_Filename: %s\n", worksheed_pointer->file_names[nummer]);
-    sprintf(worksheed_pointer->file_names_commands[0], "okular %s", worksheed_pointer->file_names[0]);
-    sprintf(worksheed_pointer->file_names_commands[1], "okular %s", worksheed_pointer->file_names[1]);
+    sprintf(worksheed_pointer->WCO_PDF_fileNames[nummer], "%s", name);
+    printf("Set_Filename: %s\n", worksheed_pointer->WCO_PDF_fileNames[nummer]);
+    sprintf(worksheed_pointer->WCO_PDF_fileNamesCommand[0], "okular %s", worksheed_pointer->WCO_PDF_fileNames[0]);
+    sprintf(worksheed_pointer->WCO_PDF_fileNamesCommand[1], "okular %s", worksheed_pointer->WCO_PDF_fileNames[1]);
+
 }
 
 /*
 *   Writes some text on the pdf
 */
-void Write_Text(struct worksheed *worksheed_pointer, int x, int y, char text[0], int page_count)
+void WCO_PDF_WriteText(struct worksheed *worksheed_pointer, int x, int y, char text[0], int page_count)
 {
     HPDF_Page_BeginText(worksheed_pointer->page[page_count]);
     HPDF_Page_TextOut(worksheed_pointer->page[page_count], x, y, text);
@@ -74,26 +75,19 @@ void Write_Text(struct worksheed *worksheed_pointer, int x, int y, char text[0],
 /*
 *   Saves the pdf // it is nesecarely to hand the full file name over .pdf
 */
-void Save_Pdf(struct worksheed *worksheed_pointer, int page_count)
+void WCO_PDF_SavePDF(struct worksheed *worksheed_pointer, int page_count)
 {
     //Saves the pdf
-    HPDF_SaveToFile(worksheed_pointer->pdf, worksheed_pointer->file_names[page_count]);
-    printf("Save_Pdf: %s\n", worksheed_pointer->file_names[page_count]);
+    HPDF_SaveToFile(worksheed_pointer->pdf, worksheed_pointer->WCO_PDF_fileNames[page_count]);
+    printf("Save_Pdf: %s\n", worksheed_pointer->WCO_PDF_fileNames[page_count]);
 }
 
-/*
-*   Closes the PDF-Viewer
-*/
-void Close_PDF(struct worksheed *worksheed_pointer)
-{
-    worksheed_pointer->show_flag = 0;
-    system("killall okular");
-}
+
 
 /*
 *   This function draws a line after every math-task to note down the handwritten answer
 */
-void Draw_Solution_Line(struct worksheed *worksheed_pointer,char tmp[], int x1, int y1, int line_lengh, int page_counter)
+void WCO_PDF_DrawSolutionLine(struct worksheed *worksheed_pointer,char tmp[], int x1, int y1, int line_lengh, int page_counter)
 {
     int task_lengh = strlen(tmp) + 1;
     int pattern_lengh = 6;
@@ -114,7 +108,7 @@ void Draw_Solution_Line(struct worksheed *worksheed_pointer,char tmp[], int x1, 
 /*
 *   This function draws a line from point a to b
 */
-void Draw_Line(struct worksheed *worksheed_pointer, int x1, int y1, int x2, int y2, int page_counter)
+void WCO_PDF_DrawLine(struct worksheed *worksheed_pointer, int x1, int y1, int x2, int y2, int page_counter)
 {
     HPDF_Page_MoveTo(worksheed_pointer->page[page_counter], x1, y1);
     HPDF_Page_LineTo(worksheed_pointer->page[page_counter], x2, y2);
