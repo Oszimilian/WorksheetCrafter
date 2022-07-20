@@ -192,8 +192,6 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
         }
     }
 
-    printf("Hallo \n");
-
     if(operand == 0)
     {
         switch(worksheed_pointer->WCO_Worksheet_number1_additionDigit)
@@ -282,7 +280,6 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
             default: break;
         }
 
-        printf("Ich habe division erkannt \n");
     }
 
     do
@@ -296,12 +293,6 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
 
     while(1)
     {
-
-        printf("%d %d %d %d \n",    worksheed_pointer->WCO_Worksheet_additionEnableFlag,
-                                    worksheed_pointer->WCO_Worksheet_subtractionEnableFlag,
-                                    worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag,
-                                    worksheed_pointer->WCO_Worksheet_divisonEnableFlag);
-
 
         if (operand == 0 && worksheed_pointer->WCO_Worksheet_additionEnableFlag) break;
         if (operand == 1 && worksheed_pointer->WCO_Worksheet_subtractionEnableFlag) break;
