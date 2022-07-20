@@ -81,7 +81,7 @@ void Change_Task_Settings(struct worksheed *worksheed_pointer, int setting)
 /*
 *   This function creats a baseboard "Kopfzeile" with up to date date and the possibility to handwrite your name
 */
-int Create_Baseboard(struct worksheed *worksheed_pointer, int page_counter)
+void Create_Baseboard(struct worksheed *worksheed_pointer, int page_counter)
 {
     if (worksheed_pointer->baseboard_flag)
     {
@@ -340,8 +340,8 @@ void Create_Random_Task(struct worksheed *worksheed_pointer, int counter)
             break;
 
             case 4:
-                    sprintf(worksheed_pointer->mathTaskArray[counter], "%.4f %c %.4f = ", first_num, task_operand, second_num_float);
-                    sprintf(worksheed_pointer->mathSolutionArray[counter], "%.4f %c %.4f = %.2f", first_num, task_operand, second_num_float, solution);
+                    sprintf(worksheed_pointer->mathTaskArray[counter], "%.4f %c %.4f = ", first_num_float, task_operand, second_num_float);
+                    sprintf(worksheed_pointer->mathSolutionArray[counter], "%.4f %c %.4f = %.2f", first_num_float, task_operand, second_num_float, solution);
             break;
 
             case 5:

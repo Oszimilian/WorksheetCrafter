@@ -14,7 +14,7 @@
 
 
 
-int main(int *argc, char *argv[])
+int main(void)
 {
     worksheed_instanze.init_complete = false;
 

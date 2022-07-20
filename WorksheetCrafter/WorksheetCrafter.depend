@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1657217305 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/main.c
+1658324862 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/main.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -2975,9 +2975,9 @@
 
 1644947452 /usr/include/gtk-3.0/gtk/gtk-autocleanups.h
 
-1657231282 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
+1658324809 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
 
-1657231244 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI_manager.c
+1658325935 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI_manager.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -2989,7 +2989,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1657225710 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/PDF_Generator.c
+1658324442 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/PDF_Generator.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3001,20 +3001,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1657231244 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Generator.c
-	<stdio.h>
-	<stdlib.h>
-	<gtk/gtk.h>
-	<time.h>
-	<setjmp.h>
-	<string.h>
-	<pthread.h>
-	<unistd.h>
-	<time.h>
-	"hpdf.h"
-	"WorksheedCrafter.h"
-
-1657231252 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Manager.c
+1658263568 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Generator.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3027,7 +3014,20 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1657209045 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/PDF_Manager.c
+1658324809 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Manager.c
+	<stdio.h>
+	<stdlib.h>
+	<gtk/gtk.h>
+	<time.h>
+	<setjmp.h>
+	<string.h>
+	<pthread.h>
+	<unistd.h>
+	<time.h>
+	"hpdf.h"
+	"WorksheedCrafter.h"
+
+1658263568 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/PDF_Manager.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>

@@ -55,6 +55,28 @@ void Start_Pdf(struct worksheed *worksheed_pointer)
 }
 
 /*
+*   Shows the final task-pdf
+*/
+static void *View_PDF_1()
+{
+    //Calling via a System call the okular pdf-viewer
+    system(worksheed_instanze.file_names_commands[0]);
+    printf("View_PDF_1: %s\n", worksheed_instanze.file_names_commands[0]);
+    return NULL;
+}
+
+/*
+*   Shows the final solution-pdf
+*/
+static void *View_PDF_2()
+{
+    //Calling via a System call the ocular pdf-viewer
+    system(worksheed_instanze.file_names_commands[1]);
+    printf("View_PDF_2: %s\n", worksheed_instanze.file_names_commands[1]);
+    return NULL;
+}
+
+/*
 *   This task initialices the base for making the math-pdf and wait for the call to start generating a pdf
 */
 void *Handle_PDF_Viewer()
@@ -79,26 +101,6 @@ void *Handle_PDF_Viewer()
     }
 }
 
-/*
-*   Shows the final task-pdf
-*/
-static void *View_PDF_1()
-{
-    //Calling via a System call the okular pdf-viewer
-    system(worksheed_instanze.file_names_commands[0]);
-    printf("View_PDF_1: %s\n", worksheed_instanze.file_names_commands[0]);
-    return NULL;
-}
 
-/*
-*   Shows the final solution-pdf
-*/
-static void *View_PDF_2()
-{
-    //Calling via a System call the ocular pdf-viewer
-    system(worksheed_instanze.file_names_commands[1]);
-    printf("View_PDF_2: %s\n", worksheed_instanze.file_names_commands[1]);
-    return NULL;
-}
 
 
