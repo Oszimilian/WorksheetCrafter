@@ -55,10 +55,10 @@ void WCO_PDF_SetupPage(struct worksheed *worksheed_pointer, int page_count)
 */
 void WCO_PDF_SetFilename(struct worksheed *worksheed_pointer, int nummer,  char name[20])
 {
-    sprintf(worksheed_pointer->file_names[nummer], "%s", name);
-    printf("Set_Filename: %s\n", worksheed_pointer->file_names[nummer]);
-    sprintf(worksheed_pointer->file_names_commands[0], "okular %s", worksheed_pointer->file_names[0]);
-    sprintf(worksheed_pointer->file_names_commands[1], "okular %s", worksheed_pointer->file_names[1]);
+    sprintf(worksheed_pointer->WCO_PDF_fileNames[nummer], "%s", name);
+    printf("Set_Filename: %s\n", worksheed_pointer->WCO_PDF_fileNames[nummer]);
+    sprintf(worksheed_pointer->WCO_PDF_fileNamesCommand[0], "okular %s", worksheed_pointer->WCO_PDF_fileNames[0]);
+    sprintf(worksheed_pointer->WCO_PDF_fileNamesCommand[1], "okular %s", worksheed_pointer->WCO_PDF_fileNames[1]);
 }
 
 /*
@@ -77,8 +77,8 @@ void WCO_PDF_WriteText(struct worksheed *worksheed_pointer, int x, int y, char t
 void WCO_PDF_SavePDF(struct worksheed *worksheed_pointer, int page_count)
 {
     //Saves the pdf
-    HPDF_SaveToFile(worksheed_pointer->pdf, worksheed_pointer->file_names[page_count]);
-    printf("Save_Pdf: %s\n", worksheed_pointer->file_names[page_count]);
+    HPDF_SaveToFile(worksheed_pointer->pdf, worksheed_pointer->WCO_PDF_fileNames[page_count]);
+    printf("Save_Pdf: %s\n", worksheed_pointer->WCO_PDF_fileNames[page_count]);
 }
 
 

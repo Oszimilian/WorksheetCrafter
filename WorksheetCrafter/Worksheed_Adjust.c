@@ -18,53 +18,53 @@ void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_po
 {
     if(setting == _Addition)
     {
-        if (worksheed_pointer->addition_flag)
+        if (worksheed_pointer->WCO_Worksheet_additionEnableFlag)
         {
-            worksheed_pointer->addition_flag = false;
+            worksheed_pointer->WCO_Worksheet_additionEnableFlag = false;
         }else{
-            worksheed_pointer->addition_flag = true;
+            worksheed_pointer->WCO_Worksheet_additionEnableFlag = true;
         }
     }
 
     if(setting == _Subtraction)
     {
-        if (worksheed_pointer->subtraction_flag)
+        if (worksheed_pointer->WCO_Worksheet_subtractionEnableFlag)
         {
-            worksheed_pointer->subtraction_flag = false;
+            worksheed_pointer->WCO_Worksheet_subtractionEnableFlag = false;
         }else{
-            worksheed_pointer->subtraction_flag = true;
+            worksheed_pointer->WCO_Worksheet_subtractionEnableFlag = true;
         }
     }
 
     if(setting == _Multiplication)
     {
-        if (worksheed_pointer->multiplication_flag)
+        if (worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag)
         {
-            worksheed_pointer->multiplication_flag = false;
+            worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag = false;
         }else{
-            worksheed_pointer->multiplication_flag = true;
+            worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag = true;
         }
     }
 
     if(setting == _Division)
     {
-        if (worksheed_pointer->division_flag)
+        if (worksheed_pointer->WCO_Worksheet_divisonEnableFlag)
         {
-            worksheed_pointer->division_flag = false;
+            worksheed_pointer->WCO_Worksheet_divisonEnableFlag = false;
         }else{
-            worksheed_pointer->division_flag = true;
+            worksheed_pointer->WCO_Worksheet_divisonEnableFlag = true;
         }
     }
 
     if(setting == _Zahlentyp)
     {
-        if (worksheed_pointer->Z_flag && !worksheed_pointer->R_flag)
+        if (worksheed_pointer->WCO_Worksheet_zNumberEnableFlag && !worksheed_pointer->WCO_Worksheet_rNumberEnableFlag)
         {
-            worksheed_pointer->Z_flag = false;
-            worksheed_pointer->R_flag = true;
+            worksheed_pointer->WCO_Worksheet_zNumberEnableFlag = false;
+            worksheed_pointer->WCO_Worksheet_rNumberEnableFlag = true;
         }else{
-            worksheed_pointer->Z_flag = true;
-            worksheed_pointer->R_flag = false;
+            worksheed_pointer->WCO_Worksheet_zNumberEnableFlag = true;
+            worksheed_pointer->WCO_Worksheet_rNumberEnableFlag = false;
         }
     }
 
@@ -84,28 +84,28 @@ void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_po
 */
 int WCO_Worksheet_Adjust_InitWorksheetSettings(struct worksheed *worksheed_pointer)
 {
-    worksheed_pointer->addition_flag = true;
-    worksheed_pointer->subtraction_flag = true;
-    worksheed_pointer->multiplication_flag = true;
-    worksheed_pointer->division_flag = true;
+    worksheed_pointer->WCO_Worksheet_additionEnableFlag = true;
+    worksheed_pointer->WCO_Worksheet_subtractionEnableFlag = true;
+    worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag = true;
+    worksheed_pointer->WCO_Worksheet_divisonEnableFlag = true;
 
-    worksheed_pointer->Z_flag = true;
-    worksheed_pointer->R_flag = false;
+    worksheed_pointer->WCO_Worksheet_zNumberEnableFlag = true;
+    worksheed_pointer->WCO_Worksheet_rNumberEnableFlag = false;
 
     worksheed_pointer->baseboard_flag = true;
 
-    worksheed_pointer->number_range = 100;
-    worksheed_pointer->number_addition_digit_1 = 3;
-    worksheed_pointer->number_addition_digit_2 = 3;
-    worksheed_pointer->number_subtraction_digit_1 = 3;
-    worksheed_pointer->number_subtraction_digit_2 = 3;
-    worksheed_pointer->number_multiplication_digit_1 = 3;
-    worksheed_pointer->number_multiplication_digit_2 = 3;
-    worksheed_pointer->number_division_digit_1 = 3;
-    worksheed_pointer->number_division_digit_2 = 3;
-    worksheed_pointer->decimal_places = 0;
 
-    worksheed_pointer->update_decimal_places = false;
+    worksheed_pointer->WCO_Worksheet_number1_additionDigit = 3;
+    worksheed_pointer->WCO_Worksheet_number2_additionDigit = 3;
+    worksheed_pointer->WCO_Worksheet_number1_subtractionDigit = 3;
+    worksheed_pointer->WCO_Worksheet_number2_subtractionDigit = 3;
+    worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit = 3;
+    worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit = 3;
+    worksheed_pointer->WCO_Worksheet_number1_divisionDigit = 3;
+    worksheed_pointer->WCO_Worksheet_number2_divisionDigit = 3;
+    worksheed_pointer->WCO_Worksheet_decimalPlaces = 0;
+
+    worksheed_pointer->update_WCO_Worksheet_decimalPlaces = false;
     worksheed_pointer->update_number_type = false;
 
     return 1;
