@@ -26,20 +26,20 @@ void *WCO_Background_Handle()
 
 void WCO_Background_Controll_DecimalPlaces(struct worksheed *worksheed_pointer)
 {
-    if (!worksheed_pointer->update_decimal_places)
+    if (!worksheed_pointer->update_WCO_Worksheet_decimalPlaces)
     {
         int max_range;
         int min_range = 1;
-        if(worksheed_pointer->number_multiplication_digit_1 < worksheed_pointer->number_multiplication_digit_2)
+        if(worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit < worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit)
         {
-            max_range = worksheed_pointer->number_multiplication_digit_1;
+            max_range = worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit;
         }else{
-            max_range = worksheed_pointer->number_multiplication_digit_2;
+            max_range = worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit;
         }
 
         gtk_spin_button_set_range(GTK_SPIN_BUTTON(MySpinButton1), (double)min_range, (double)max_range);
 
-        worksheed_instanze.update_decimal_places = true;
+        worksheed_instanze.update_WCO_Worksheet_decimalPlaces = true;
     }
 }
 
@@ -47,11 +47,11 @@ void WCO_Background_Controll_Visibility(struct worksheed *worksheed_pointer)
 {
     if (!worksheed_pointer->update_number_type)
     {
-        if (worksheed_pointer->Z_flag && !worksheed_pointer->R_flag)
+        if (worksheed_pointer->WCO_Worksheet_zNumberEnableFlag && !worksheed_pointer->WCO_Worksheet_rNumberEnableFlag)
         {
             gtk_widget_hide(MySpinButton1);
         }
-        if (!worksheed_pointer->Z_flag && worksheed_pointer->R_flag)
+        if (!worksheed_pointer->WCO_Worksheet_zNumberEnableFlag && worksheed_pointer->WCO_Worksheet_rNumberEnableFlag)
         {
             gtk_widget_show(MySpinButton1);
         }

@@ -81,9 +81,9 @@ void WCO_Worksheet_Creat_TaskSheet(struct worksheed *worksheed_pointer)
 
             WCO_Worksheet_Create_RandomTask(worksheed_pointer, task_counter);
 
-            WCO_PDF_WriteText(worksheed_pointer, x, size_counter, worksheed_pointer->mathTaskArray[task_counter], _Tasks);
+            WCO_PDF_WriteText(worksheed_pointer, x, size_counter, worksheed_pointer->WCO_Worksheet_taskArray[task_counter], _Tasks);
 
-            WCO_PDF_DrawSolutionLine(worksheed_pointer, worksheed_pointer->mathTaskArray[task_counter], x, size_counter, 60, _Tasks);
+            WCO_PDF_DrawSolutionLine(worksheed_pointer, worksheed_pointer->WCO_Worksheet_taskArray[task_counter], x, size_counter, 60, _Tasks);
 
             task_counter++;
 
@@ -122,13 +122,13 @@ void WCO_Worksheet_Create_SolutionSheed(struct worksheed *worksheed_pointer)
                 default: break;
             }
 
-            WCO_PDF_WriteText(worksheed_pointer, x, size_counter, worksheed_pointer->mathSolutionArray[task_counter], _Solutions);
+            WCO_PDF_WriteText(worksheed_pointer, x, size_counter, worksheed_pointer->WCO_Worksheet_solutionArray[task_counter], _Solutions);
 
             task_counter++;
 
             size_counter = size_counter - 50;
 
-            //printf("-> %s \n", worksheed_pointer->mathSolutionArray[task_counter]);
+            //printf("-> %s \n", worksheed_pointer->WCO_Worksheet_solutionArray[task_counter]);
         }
 
         size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Solutions]) - worksheed_pointer->baseboard_treashold;
@@ -143,6 +143,8 @@ void WCO_Worksheet_Create_SolutionSheed(struct worksheed *worksheed_pointer)
 */
 void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int counter)
 {
+
+
     int max_rand_1 = 0;
     int max_rand_2 = 0;
     int first_num;
@@ -159,34 +161,42 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
     {
         operand = rand() % 4;
 
+        if( !worksheed_pointer->WCO_Worksheet_additionEnableFlag &&
+            !worksheed_pointer->WCO_Worksheet_subtractionEnableFlag &&
+            !worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag&&
+            !worksheed_pointer->WCO_Worksheet_divisonEnableFlag) break;
+
         switch(operand)
         {
             case 0:
-                    if (worksheed_pointer->addition_flag) operand_check = true;
-                    if (!worksheed_pointer->addition_flag) operand_check = false;
+                    if (worksheed_pointer->WCO_Worksheet_additionEnableFlag) operand_check = true;
+                    if (!worksheed_pointer->WCO_Worksheet_additionEnableFlag) operand_check = false;
             break;
 
             case 1:
-                    if (worksheed_pointer->subtraction_flag) operand_check = true;
-                    if (!worksheed_pointer->subtraction_flag) operand_check = false;
+                    if (worksheed_pointer->WCO_Worksheet_subtractionEnableFlag) operand_check = true;
+                    if (!worksheed_pointer->WCO_Worksheet_subtractionEnableFlag) operand_check = false;
             break;
 
             case 2:
-                    if (worksheed_pointer->multiplication_flag) operand_check = true;
-                    if (!worksheed_pointer->multiplication_flag) operand_check = false;
+                    if (worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag) operand_check = true;
+                    if (!worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag) operand_check = false;
             break;
 
             case 3:
-                    if (worksheed_pointer->division_flag) operand_check = true;
-                    if (!worksheed_pointer->division_flag) operand_check = false;
+                    if (worksheed_pointer->WCO_Worksheet_divisonEnableFlag) operand_check = true;
+                    if (!worksheed_pointer->WCO_Worksheet_divisonEnableFlag) operand_check = false;
             break;
+
+            default: break;
         }
     }
 
+    printf("Hallo \n");
 
     if(operand == 0)
     {
-        switch(worksheed_pointer->number_addition_digit_1)
+        switch(worksheed_pointer->WCO_Worksheet_number1_additionDigit)
         {
             case 1: max_rand_1 = 10; break;
             case 2: max_rand_1 = 100; break;
@@ -196,7 +206,7 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
             default: break;
         }
 
-        switch(worksheed_pointer->number_addition_digit_2)
+        switch(worksheed_pointer->WCO_Worksheet_number2_additionDigit)
         {
             case 1: max_rand_2 = 10; break;
             case 2: max_rand_2 = 100; break;
@@ -208,7 +218,7 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
     }
     else if(operand == 1)
     {
-        switch(worksheed_pointer->number_subtraction_digit_1)
+        switch(worksheed_pointer->WCO_Worksheet_number1_subtractionDigit)
         {
             case 1: max_rand_1 = 10; break;
             case 2: max_rand_1 = 100; break;
@@ -218,7 +228,7 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
             default: break;
         }
 
-        switch(worksheed_pointer->number_subtraction_digit_2)
+        switch(worksheed_pointer->WCO_Worksheet_number2_subtractionDigit)
         {
             case 1: max_rand_2 = 10; break;
             case 2: max_rand_2 = 100; break;
@@ -230,7 +240,7 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
     }
     else if(operand == 2)
     {
-        switch(worksheed_pointer->number_multiplication_digit_1)
+        switch(worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit)
         {
             case 1: max_rand_1 = 10; break;
             case 2: max_rand_1 = 100; break;
@@ -240,7 +250,7 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
             default: break;
         }
 
-        switch(worksheed_pointer->number_multiplication_digit_2)
+        switch(worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit)
         {
             case 1: max_rand_2 = 10; break;
             case 2: max_rand_2 = 100; break;
@@ -252,7 +262,7 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
     }
     else if(operand == 3)
     {
-        switch(worksheed_pointer->number_division_digit_1)
+        switch(worksheed_pointer->WCO_Worksheet_number1_divisionDigit)
         {
             case 1: max_rand_1 = 10; break;
             case 2: max_rand_1 = 100; break;
@@ -262,7 +272,7 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
             default: break;
         }
 
-        switch(worksheed_pointer->number_division_digit_2)
+        switch(worksheed_pointer->WCO_Worksheet_number2_divisionDigit)
         {
             case 1: max_rand_2 = 10; break;
             case 2: max_rand_2 = 100; break;
@@ -286,22 +296,31 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
 
     while(1)
     {
-        if (operand == 0 && worksheed_pointer->addition_flag) break;
-        if (operand == 1 && worksheed_pointer->subtraction_flag) break;
-        if (operand == 2 && worksheed_pointer->multiplication_flag) break;
-        if (operand == 3 && worksheed_pointer->division_flag) break;
 
-        if (!worksheed_pointer->addition_flag && !worksheed_pointer->subtraction_flag && !worksheed_pointer->multiplication_flag && !worksheed_pointer->division_flag)
+        printf("%d %d %d %d \n",    worksheed_pointer->WCO_Worksheet_additionEnableFlag,
+                                    worksheed_pointer->WCO_Worksheet_subtractionEnableFlag,
+                                    worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag,
+                                    worksheed_pointer->WCO_Worksheet_divisonEnableFlag);
+
+
+        if (operand == 0 && worksheed_pointer->WCO_Worksheet_additionEnableFlag) break;
+        if (operand == 1 && worksheed_pointer->WCO_Worksheet_subtractionEnableFlag) break;
+        if (operand == 2 && worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag) break;
+        if (operand == 3 && worksheed_pointer->WCO_Worksheet_divisonEnableFlag) break;
+
+
+
+        if (!worksheed_pointer->WCO_Worksheet_additionEnableFlag && !worksheed_pointer->WCO_Worksheet_subtractionEnableFlag && !worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag && !worksheed_pointer->WCO_Worksheet_divisonEnableFlag)
         {
             gtk_label_set_text(MyLabel1, "Sie müssen auf jeden Fall einen Operator auswählen!");
             WCO_GUI_ClosePDFViewer(&worksheed_instanze);
 
-            while(worksheed_pointer->addition_flag || worksheed_pointer->subtraction_flag || worksheed_pointer->multiplication_flag || worksheed_pointer->division_flag) {}
+            while(worksheed_pointer->WCO_Worksheet_additionEnableFlag || worksheed_pointer->WCO_Worksheet_subtractionEnableFlag || worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag || worksheed_pointer->WCO_Worksheet_divisonEnableFlag) {}
             break;
         }
     }
 
-    if (worksheed_pointer->Z_flag && !worksheed_pointer->R_flag)
+    if (worksheed_pointer->WCO_Worksheet_zNumberEnableFlag && !worksheed_pointer->WCO_Worksheet_rNumberEnableFlag)
     {
         switch(operand)
         {
@@ -312,14 +331,14 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
             default: break;
         }
 
-        sprintf(worksheed_pointer->mathTaskArray[counter], "%d %c %d = ", first_num, task_operand, second_num);
+        sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%d %c %d = ", first_num, task_operand, second_num);
 
-        sprintf(worksheed_pointer->mathSolutionArray[counter], "%d %c %d = %.2f", first_num, task_operand, second_num, solution);
+        sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%d %c %d = %.2f", first_num, task_operand, second_num, solution);
     }
 
-    if (!worksheed_pointer->Z_flag && worksheed_pointer->R_flag)
+    if (!worksheed_pointer->WCO_Worksheet_zNumberEnableFlag && worksheed_pointer->WCO_Worksheet_rNumberEnableFlag)
     {
-        switch(worksheed_pointer->decimal_places)
+        switch(worksheed_pointer->WCO_Worksheet_decimalPlaces)
         {
             case 0: first_num_float *= 1; second_num_float *= 1; break;
             case 1: first_num_float *= 0.1; second_num_float *= 0.1; break;
@@ -339,36 +358,36 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
             default: break;
         }
 
-        switch(worksheed_pointer->decimal_places)
+        switch(worksheed_pointer->WCO_Worksheet_decimalPlaces)
         {
             case 0:
-                    sprintf(worksheed_pointer->mathTaskArray[counter], "%.0f %c %.0f = ", first_num_float, task_operand, second_num_float);
-                    sprintf(worksheed_pointer->mathSolutionArray[counter], "%.0f %c %.0f = %.2f", first_num_float, task_operand, second_num_float, solution);
+                    sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%.0f %c %.0f = ", first_num_float, task_operand, second_num_float);
+                    sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%.0f %c %.0f = %.2f", first_num_float, task_operand, second_num_float, solution);
             break;
 
             case 1:
-                    sprintf(worksheed_pointer->mathTaskArray[counter], "%.1f %c %.1f = ", first_num_float, task_operand, second_num_float);
-                    sprintf(worksheed_pointer->mathSolutionArray[counter], "%.1f %c %.1f = %.2f", first_num_float, task_operand, second_num_float, solution);
+                    sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%.1f %c %.1f = ", first_num_float, task_operand, second_num_float);
+                    sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%.1f %c %.1f = %.2f", first_num_float, task_operand, second_num_float, solution);
             break;
 
             case 2:
-                    sprintf(worksheed_pointer->mathTaskArray[counter], "%.2f %c %.2f = ", first_num_float, task_operand, second_num_float);
-                    sprintf(worksheed_pointer->mathSolutionArray[counter], "%.2f %c %.2f = %.2f", first_num_float, task_operand, second_num_float, solution);
+                    sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%.2f %c %.2f = ", first_num_float, task_operand, second_num_float);
+                    sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%.2f %c %.2f = %.2f", first_num_float, task_operand, second_num_float, solution);
             break;
 
             case 3:
-                    sprintf(worksheed_pointer->mathTaskArray[counter], "%.3f %c %.3f = ", first_num_float, task_operand, second_num_float);
-                    sprintf(worksheed_pointer->mathSolutionArray[counter], "%.3f %c %.3f = %.2f", first_num_float, task_operand, second_num_float, solution);
+                    sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%.3f %c %.3f = ", first_num_float, task_operand, second_num_float);
+                    sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%.3f %c %.3f = %.2f", first_num_float, task_operand, second_num_float, solution);
             break;
 
             case 4:
-                    sprintf(worksheed_pointer->mathTaskArray[counter], "%.4f %c %.4f = ", first_num_float, task_operand, second_num_float);
-                    sprintf(worksheed_pointer->mathSolutionArray[counter], "%.4f %c %.4f = %.2f", first_num_float, task_operand, second_num_float, solution);
+                    sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%.4f %c %.4f = ", first_num_float, task_operand, second_num_float);
+                    sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%.4f %c %.4f = %.2f", first_num_float, task_operand, second_num_float, solution);
             break;
 
             case 5:
-                    sprintf(worksheed_pointer->mathTaskArray[counter], "%.5f %c %.5f = ", first_num_float, task_operand, second_num_float);
-                    sprintf(worksheed_pointer->mathSolutionArray[counter], "%.5f %c %.5f = %.2f", first_num_float, task_operand, second_num_float, solution);
+                    sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%.5f %c %.5f = ", first_num_float, task_operand, second_num_float);
+                    sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%.5f %c %.5f = %.2f", first_num_float, task_operand, second_num_float, solution);
             break;
 
             default: break;

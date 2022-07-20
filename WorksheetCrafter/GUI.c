@@ -58,16 +58,18 @@ void exitApp()
 
 void MyButton1_Clicked(GtkButton *b)
 {
-    //worksheed_instanze.show_flag = 0;
+    worksheed_instanze.WCO_GUI_showPDFViewerFlag = 0;
 
     printf("Button One is clicked! \n");
 
     WCO_PDF_SetFilename(&worksheed_instanze, 0, "Aufgaben.pdf");
     WCO_PDF_SetFilename(&worksheed_instanze, 1, "Lösungen.pdf");
 
-    worksheed_instanze.show_flag = 1;
+    worksheed_instanze.WCO_GUI_showPDFViewerFlag = 1;
 
     WCO_Worksheet_Create_Start(&worksheed_instanze);
+
+
 }
 
 void MyButton2_Clicked(GtkButton *b)
@@ -115,8 +117,8 @@ void MyRadioButton2_Toggled(GtkRadioButton *b)
 void MySpinButton1_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton1));
-    worksheed_instanze.decimal_places = (int)spin_value;
-    worksheed_instanze.update_decimal_places = false;
+    worksheed_instanze.WCO_Worksheet_decimalPlaces = (int)spin_value;
+    worksheed_instanze.update_WCO_Worksheet_decimalPlaces = false;
 }
 
 
@@ -128,7 +130,7 @@ void MySpinButton1_Changed(GtkSpinButton *s)
 void MySpinButton2_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton2));
-    worksheed_instanze.number_addition_digit_1 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number1_additionDigit = (int)spin_value;
 }
 
 /*
@@ -137,7 +139,7 @@ void MySpinButton2_Changed(GtkSpinButton *s)
 void MySpinButton8_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton8));
-    worksheed_instanze.number_addition_digit_2 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number2_additionDigit = (int)spin_value;
 }
 
 /*
@@ -146,7 +148,7 @@ void MySpinButton8_Changed(GtkSpinButton *s)
 void MySpinButton5_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton5));
-    worksheed_instanze.number_subtraction_digit_1 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number1_subtractionDigit = (int)spin_value;
 }
 
 /*
@@ -155,7 +157,7 @@ void MySpinButton5_Changed(GtkSpinButton *s)
 void MySpinButton9_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton9));
-    worksheed_instanze.number_subtraction_digit_2 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number2_subtractionDigit = (int)spin_value;
 }
 
 /*
@@ -164,8 +166,8 @@ void MySpinButton9_Changed(GtkSpinButton *s)
 void MySpinButton3_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton3));
-    worksheed_instanze.number_multiplication_digit_1 = (int)spin_value;
-    worksheed_instanze.update_decimal_places = false;
+    worksheed_instanze.WCO_Worksheet_number1_multiplicationDigit = (int)spin_value;
+    worksheed_instanze.update_WCO_Worksheet_decimalPlaces = false;
 }
 
 /*
@@ -174,8 +176,8 @@ void MySpinButton3_Changed(GtkSpinButton *s)
 void MySpinButton4_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton4));
-    worksheed_instanze.number_multiplication_digit_2 = (int)spin_value;
-    worksheed_instanze.update_decimal_places = false;
+    worksheed_instanze.WCO_Worksheet_number2_multiplicationDigit = (int)spin_value;
+    worksheed_instanze.update_WCO_Worksheet_decimalPlaces = false;
 }
 
 /*
@@ -184,7 +186,7 @@ void MySpinButton4_Changed(GtkSpinButton *s)
 void MySpinButton6_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton6));
-    worksheed_instanze.number_division_digit_1 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number1_divisionDigit = (int)spin_value;
 }
 
 /*
@@ -193,7 +195,7 @@ void MySpinButton6_Changed(GtkSpinButton *s)
 void MySpinButton7_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton7));
-    worksheed_instanze.number_division_digit_2 = (int)spin_value;
+    worksheed_instanze.WCO_Worksheet_number2_divisionDigit = (int)spin_value;
 }
 
 /*
@@ -206,8 +208,8 @@ void MySpinButton7_Changed(GtkSpinButton *s)
 static void *WCO_GUI_PDFViewer_1_Start()
 {
     //Calling via a System call the okular pdf-viewer
-    system(worksheed_instanze.file_names_commands[0]);
-    printf("View_PDF_1: %s\n", worksheed_instanze.file_names_commands[0]);
+    system(worksheed_instanze.WCO_PDF_fileNamesCommand[0]);
+    printf("View_PDF_1: %s\n", worksheed_instanze.WCO_PDF_fileNamesCommand[0]);
     return NULL;
 }
 
@@ -217,17 +219,17 @@ static void *WCO_GUI_PDFViewer_1_Start()
 static void *WCO_GUI_PDFViewer_2_Start()
 {
     //Calling via a System call the ocular pdf-viewer
-    system(worksheed_instanze.file_names_commands[1]);
-    printf("View_PDF_2: %s\n", worksheed_instanze.file_names_commands[1]);
+    system(worksheed_instanze.WCO_PDF_fileNamesCommand[1]);
+    printf("View_PDF_2: %s\n", worksheed_instanze.WCO_PDF_fileNamesCommand[1]);
     return NULL;
 }
 
 void *WCO_GUI_PDFViewer()
 {
-    worksheed_instanze.show_flag = 0;
+    worksheed_instanze.WCO_GUI_showPDFViewerFlag = 0;
     while(1)
     {
-        while(worksheed_instanze.show_flag)
+        while(worksheed_instanze.WCO_GUI_showPDFViewerFlag)
         {
             //initialising tow instanzes of Threads
             pthread_t thread_id3;
@@ -261,7 +263,7 @@ void WCO_GUI_ClosePDF(struct worksheed *worksheed_pointer)
 */
 void WCO_GUI_ClosePDFViewer(struct worksheed *worksheed_pointer)
 {
-    worksheed_pointer->show_flag = 0;
+    worksheed_pointer->WCO_GUI_showPDFViewerFlag = 0;
     system("killall okular");
 }
 

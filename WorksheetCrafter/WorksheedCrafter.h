@@ -71,38 +71,40 @@ void MySpinButton9_Changed(GtkSpinButton *s);
 
 
 struct worksheed{
-    char mathTaskArray[50][40];
-    char mathSolutionArray[50][40];
     HPDF_Doc pdf;
     HPDF_Page page[20];
-    char file_names_commands[2][40];
-    char file_names[2][30];
-    int show_flag;
-    char test_text[40];
 
-    int addition_flag;
-    int subtraction_flag;
-    int multiplication_flag;
-    int division_flag;
-    int Z_flag;
-    int R_flag;
+    char WCO_Worksheet_taskArray[50][40];
+    char WCO_Worksheet_solutionArray[50][40];
 
-    int number_range;
-    int number_addition_digit_1;
-    int number_addition_digit_2;
-    int number_subtraction_digit_1;
-    int number_subtraction_digit_2;
-    int number_multiplication_digit_1;
-    int number_multiplication_digit_2;
-    int number_division_digit_1;
-    int number_division_digit_2;
-    int decimal_places;
+    char WCO_PDF_fileNamesCommand[2][40];
+    char WCO_PDF_fileNames[2][30];
+
+    int WCO_GUI_showPDFViewerFlag;
+
+    int WCO_Worksheet_additionEnableFlag;
+    int WCO_Worksheet_subtractionEnableFlag;
+    int WCO_Worksheet_multiplicationEnableFlag;
+    int WCO_Worksheet_divisonEnableFlag;
+    int WCO_Worksheet_zNumberEnableFlag;
+    int WCO_Worksheet_rNumberEnableFlag;
+
+
+    int WCO_Worksheet_number1_additionDigit;
+    int WCO_Worksheet_number2_additionDigit;
+    int WCO_Worksheet_number1_subtractionDigit;
+    int WCO_Worksheet_number2_subtractionDigit;
+    int WCO_Worksheet_number1_multiplicationDigit;
+    int WCO_Worksheet_number2_multiplicationDigit;
+    int WCO_Worksheet_number1_divisionDigit;
+    int WCO_Worksheet_number2_divisionDigit;
+    int WCO_Worksheet_decimalPlaces;
 
     int baseboard_flag;
     int baseboard_treashold;
 
     int init_complete;
-    int update_decimal_places;
+    int update_WCO_Worksheet_decimalPlaces;
     int update_number_type;
 }worksheed_instanze;
 
