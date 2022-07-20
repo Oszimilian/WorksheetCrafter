@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1658349192 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/main.c
+1658351677 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/main.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -2975,7 +2975,7 @@
 
 1644947452 /usr/include/gtk-3.0/gtk/gtk-autocleanups.h
 
-1658349254 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
+1658351720 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
 
 1657231648 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI_manager.c
 	<stdio.h>
@@ -3040,7 +3040,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1658348888 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Background.c
+1658351677 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Background.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3053,7 +3053,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1658347706 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/PDF.c
+1658351677 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/PDF.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3066,7 +3066,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1658348888 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Adjust.c
+1658351677 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Adjust.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3079,7 +3079,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1658348888 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheet_Creat.c
+1658351946 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheet_Creat.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3091,7 +3091,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1658349145 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI.c
+1658351933 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>

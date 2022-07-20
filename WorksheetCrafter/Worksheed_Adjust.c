@@ -14,7 +14,7 @@
 /*
 *   Changes the Setting for generating the math-PDF
 */
-void Change_Task_Settings(struct worksheed *worksheed_pointer, int setting)
+void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_pointer, int setting)
 {
     if(setting == _Addition)
     {
@@ -82,7 +82,7 @@ void Change_Task_Settings(struct worksheed *worksheed_pointer, int setting)
 /*
 *   Initialise the settings for the math-PDF
 */
-int Init_Task_Settings(struct worksheed *worksheed_pointer)
+int WCO_Worksheet_Adjust_InitWorksheetSettings(struct worksheed *worksheed_pointer)
 {
     worksheed_pointer->addition_flag = true;
     worksheed_pointer->subtraction_flag = true;

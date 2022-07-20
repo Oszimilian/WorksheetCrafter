@@ -11,7 +11,7 @@
 
 
 
-void *Start_GUI(void *vargp)
+void *WCO_GUI_Start(void *vargp)
 {
     gtk_init(NULL, NULL);
 
@@ -40,7 +40,7 @@ void *Start_GUI(void *vargp)
     MySpinButton8 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton8"));
     MySpinButton9 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton9"));
 
-    worksheed_instanze.init_complete = Init_Task_Settings(&worksheed_instanze);
+    worksheed_instanze.init_complete = WCO_Worksheet_Adjust_InitWorksheetSettings(&worksheed_instanze);
 
     gtk_builder_connect_signals(MyBuilder, NULL);
 
@@ -53,7 +53,7 @@ void *Start_GUI(void *vargp)
 
 void exitApp()
 {
-    Close_WorksheedCrafter(&worksheed_instanze);
+    WCO_GUI_ClosePDF(&worksheed_instanze);
 }
 
 void MyButton1_Clicked(GtkButton *b)
@@ -62,47 +62,47 @@ void MyButton1_Clicked(GtkButton *b)
 
     printf("Button One is clicked! \n");
 
-    Set_Filename(&worksheed_instanze, 0, "Aufgaben.pdf");
-    Set_Filename(&worksheed_instanze, 1, "Lösungen.pdf");
+    WCO_PDF_SetFilename(&worksheed_instanze, 0, "Aufgaben.pdf");
+    WCO_PDF_SetFilename(&worksheed_instanze, 1, "Lösungen.pdf");
 
     worksheed_instanze.show_flag = 1;
 
-    Start_Pdf(&worksheed_instanze);
+    WCO_Worksheet_Create_Start(&worksheed_instanze);
 }
 
 void MyButton2_Clicked(GtkButton *b)
 {
-    Close_PDF(&worksheed_instanze);
+    WCO_GUI_ClosePDFViewer(&worksheed_instanze);
 }
 
 void MyCheckButton1_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Addition);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Addition);
 }
 
 void MyCheckButton2_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Subtraction);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Subtraction);
 }
 
 void MyCheckButton3_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Multiplication);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Multiplication);
 }
 
 void MyCheckButton4_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Division);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Division);
 }
 
 void MyCheckButton5_Toggled(GtkCheckButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Baseboard);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Baseboard);
 }
 
 void MyRadioButton1_Toggled(GtkRadioButton *b)
 {
-    Change_Task_Settings(&worksheed_instanze, _Zahlentyp);
+    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Zahlentyp);
     worksheed_instanze.update_number_type = false;
 }
 
@@ -203,7 +203,7 @@ void MySpinButton7_Changed(GtkSpinButton *s)
 /*
 *   Shows the final task-pdf
 */
-static void *View_PDF_1()
+static void *WCO_GUI_PDFViewer_1_Start()
 {
     //Calling via a System call the okular pdf-viewer
     system(worksheed_instanze.file_names_commands[0]);
@@ -214,14 +214,15 @@ static void *View_PDF_1()
 /*
 *   Shows the final solution-pdf
 */
-static void *View_PDF_2()
+static void *WCO_GUI_PDFViewer_2_Start()
 {
     //Calling via a System call the ocular pdf-viewer
     system(worksheed_instanze.file_names_commands[1]);
     printf("View_PDF_2: %s\n", worksheed_instanze.file_names_commands[1]);
     return NULL;
 }
-void *Handle_PDF_Viewer()
+
+void *WCO_GUI_PDFViewer()
 {
     worksheed_instanze.show_flag = 0;
     while(1)
@@ -233,8 +234,8 @@ void *Handle_PDF_Viewer()
             pthread_t thread_id4;
 
             //Creat the Thread and teeling the function the function which have to be execute
-            pthread_create(&thread_id3, NULL, View_PDF_1, NULL);
-            pthread_create(&thread_id4, NULL, View_PDF_2, NULL);
+            pthread_create(&thread_id3, NULL, WCO_GUI_PDFViewer_1_Start, NULL);
+            pthread_create(&thread_id4, NULL, WCO_GUI_PDFViewer_2_Start, NULL);
 
             //Joining the Threads
             pthread_join(thread_id3, NULL);
@@ -248,10 +249,19 @@ void *Handle_PDF_Viewer()
 /*
 *   Will close the Hole Programm
 */
-void Close_WorksheedCrafter(struct worksheed *worksheed_pointer)
+void WCO_GUI_ClosePDF(struct worksheed *worksheed_pointer)
 {
-    Close_PDF(&worksheed_instanze);
+    WCO_GUI_ClosePDFViewer(&worksheed_instanze);
     gtk_main_quit();
     exit(0);
+}
+
+/*
+*   Closes the PDF-Viewer
+*/
+void WCO_GUI_ClosePDFViewer(struct worksheed *worksheed_pointer)
+{
+    worksheed_pointer->show_flag = 0;
+    system("killall okular");
 }
 

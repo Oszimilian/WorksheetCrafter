@@ -10,11 +10,54 @@
 #include "WorksheedCrafter.h"
 
 /*
+*   This Funktion starts the process of generating a math-task-pdf from the beginning till the end
+*/
+void WCO_Worksheet_Create_Start(struct worksheed *worksheed_pointer)
+{
+    worksheed_instanze.pdf = HPDF_New (Error_Handler, NULL);
+
+    //Check this pdf-Doc
+    int pdf_status = WCO_PDF_Check(&worksheed_instanze);
+
+    if (pdf_status)
+    {
+        printf("PDF hat einen Fehler, bzw. konnte nicht erzeugt werden \n");
+    }else{
+        printf("PDF wurde erfolgreich erzeugt \n");
+    }
+
+    //Generating a new page zero
+    WCO_PDF_SetupPage(worksheed_pointer, _Tasks);
+
+    //Wirte some text
+    WCO_Worksheet_Creat_TaskSheet(worksheed_pointer);
+
+
+    //Save pdf and show it witch okular viewer
+    WCO_PDF_SavePDF(worksheed_pointer, _Tasks);
+
+    //Neue PDF wird erzeugt
+    HPDF_NewDoc(worksheed_pointer->pdf);
+
+    //Generatign a new pdf
+    WCO_PDF_SetupPage(worksheed_pointer, _Solutions);
+
+    //Creates a Solution  - PDF
+    WCO_Worksheet_Create_SolutionSheed(worksheed_pointer);
+
+    //Saves the Solution - PDF
+    WCO_PDF_SavePDF(worksheed_pointer, _Solutions);
+
+    //ends the hole progress with generating a pdf
+    HPDF_Free(worksheed_pointer->pdf);
+}
+
+/*
 *   Creats a sheed with the asked solutions
 */
-void Create_Task_Sheed(struct worksheed *worksheed_pointer)
+void WCO_Worksheet_Creat_TaskSheet(struct worksheed *worksheed_pointer)
 {
-    Create_Baseboard(worksheed_pointer, _Tasks);
+    WCO_Worksheet_Creat_Baseboard(worksheed_pointer, _Tasks);
 
     int size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Tasks]) - worksheed_pointer->baseboard_treashold;
     int task_counter = 0;
@@ -36,11 +79,11 @@ void Create_Task_Sheed(struct worksheed *worksheed_pointer)
                 default: break;
             }
 
-            Create_Random_Task(worksheed_pointer, task_counter);
+            WCO_Worksheet_Create_RandomTask(worksheed_pointer, task_counter);
 
-            Write_Text(worksheed_pointer, x, size_counter, worksheed_pointer->mathTaskArray[task_counter], _Tasks);
+            WCO_PDF_WriteText(worksheed_pointer, x, size_counter, worksheed_pointer->mathTaskArray[task_counter], _Tasks);
 
-            Draw_Solution_Line(worksheed_pointer, worksheed_pointer->mathTaskArray[task_counter], x, size_counter, 60, _Tasks);
+            WCO_PDF_DrawSolutionLine(worksheed_pointer, worksheed_pointer->mathTaskArray[task_counter], x, size_counter, 60, _Tasks);
 
             task_counter++;
 
@@ -57,9 +100,9 @@ void Create_Task_Sheed(struct worksheed *worksheed_pointer)
 /*
 *   Creas a sheed with the solutions
 */
-void Creat_Solution_Sheed(struct worksheed *worksheed_pointer)
+void WCO_Worksheet_Create_SolutionSheed(struct worksheed *worksheed_pointer)
 {
-    Create_Baseboard(worksheed_pointer, _Solutions);
+    WCO_Worksheet_Creat_Baseboard(worksheed_pointer, _Solutions);
 
     int size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Solutions]) - worksheed_pointer->baseboard_treashold;
     int task_counter = 0;
@@ -79,7 +122,7 @@ void Creat_Solution_Sheed(struct worksheed *worksheed_pointer)
                 default: break;
             }
 
-            Write_Text(worksheed_pointer, x, size_counter, worksheed_pointer->mathSolutionArray[task_counter], _Solutions);
+            WCO_PDF_WriteText(worksheed_pointer, x, size_counter, worksheed_pointer->mathSolutionArray[task_counter], _Solutions);
 
             task_counter++;
 
@@ -98,7 +141,7 @@ void Creat_Solution_Sheed(struct worksheed *worksheed_pointer)
 /*
 *   This function creats random math task and writes it into a struct defined string
 */
-void Create_Random_Task(struct worksheed *worksheed_pointer, int counter)
+void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int counter)
 {
     int max_rand_1 = 0;
     int max_rand_2 = 0;
@@ -251,7 +294,7 @@ void Create_Random_Task(struct worksheed *worksheed_pointer, int counter)
         if (!worksheed_pointer->addition_flag && !worksheed_pointer->subtraction_flag && !worksheed_pointer->multiplication_flag && !worksheed_pointer->division_flag)
         {
             gtk_label_set_text(MyLabel1, "Sie müssen auf jeden Fall einen Operator auswählen!");
-            Close_PDF(&worksheed_instanze);
+            WCO_GUI_ClosePDFViewer(&worksheed_instanze);
 
             while(worksheed_pointer->addition_flag || worksheed_pointer->subtraction_flag || worksheed_pointer->multiplication_flag || worksheed_pointer->division_flag) {}
             break;
@@ -337,7 +380,7 @@ void Create_Random_Task(struct worksheed *worksheed_pointer, int counter)
 /*
 *   This function creats a baseboard "Kopfzeile" with up to date date and the possibility to handwrite your name
 */
-void Create_Baseboard(struct worksheed *worksheed_pointer, int page_counter)
+void WCO_Worksheet_Creat_Baseboard(struct worksheed *worksheed_pointer, int page_counter)
 {
     if (worksheed_pointer->baseboard_flag)
     {
@@ -347,14 +390,14 @@ void Create_Baseboard(struct worksheed *worksheed_pointer, int page_counter)
 
         worksheed_pointer->baseboard_treashold = 150;
 
-        Write_Text(worksheed_pointer, startx1, 775, "Name:", page_counter);
-        Draw_Solution_Line(worksheed_pointer, "Name:  ", startx1, 770, 150, page_counter);
+        WCO_PDF_WriteText(worksheed_pointer, startx1, 775, "Name:", page_counter);
+        WCO_PDF_DrawSolutionLine(worksheed_pointer, "Name:  ", startx1, 770, 150, page_counter);
 
         if(page_counter == _Tasks)
         {
-            Write_Text(worksheed_pointer, startx2, 775, "AUFGABEN", page_counter);
+            WCO_PDF_WriteText(worksheed_pointer, startx2, 775, "AUFGABEN", page_counter);
         }else{
-            Write_Text(worksheed_pointer, startx2, 775, "SOLUTION", page_counter);
+            WCO_PDF_WriteText(worksheed_pointer, startx2, 775, "SOLUTION", page_counter);
         }
 
         time_t now;
@@ -363,57 +406,16 @@ void Create_Baseboard(struct worksheed *worksheed_pointer, int page_counter)
         tm_instance = localtime(&now);
         char tmp[20];
         sprintf(tmp, "Datum: %d.%d.%d", tm_instance->tm_mday, tm_instance->tm_mon + 1, tm_instance->tm_year + 1900);
-        Write_Text(worksheed_pointer, startx3, 775, tmp, page_counter);
+        WCO_PDF_WriteText(worksheed_pointer, startx3, 775, tmp, page_counter);
 
-        Draw_Line(worksheed_pointer, 50, 750, HPDF_Page_GetWidth(worksheed_pointer->page[page_counter]) - 50, 750, page_counter);
+        WCO_PDF_DrawLine(worksheed_pointer, 50, 750, HPDF_Page_GetWidth(worksheed_pointer->page[page_counter]) - 50, 750, page_counter);
 
     }else{
         worksheed_pointer->baseboard_treashold = 0;
     }
 }
 
-/*
-*   This Funktion starts the process of generating a math-task-pdf from the beginning till the end
-*/
-void Start_Pdf(struct worksheed *worksheed_pointer)
-{
-    worksheed_instanze.pdf = HPDF_New (Error_Handler, NULL);
 
-    //Check this pdf-Doc
-    int pdf_status = Check_Pdf(&worksheed_instanze);
-
-    if (pdf_status)
-    {
-        printf("PDF hat einen Fehler, bzw. konnte nicht erzeugt werden \n");
-    }else{
-        printf("PDF wurde erfolgreich erzeugt \n");
-    }
-
-    //Generating a new page zero
-    Setup_Page(worksheed_pointer, _Tasks);
-
-    //Wirte some text
-    Create_Task_Sheed(worksheed_pointer);
-
-
-    //Save pdf and show it witch okular viewer
-    Save_Pdf(worksheed_pointer, _Tasks);
-
-    //Neue PDF wird erzeugt
-    HPDF_NewDoc(worksheed_pointer->pdf);
-
-    //Generatign a new pdf
-    Setup_Page(worksheed_pointer, _Solutions);
-
-    //Creates a Solution  - PDF
-    Creat_Solution_Sheed(worksheed_pointer);
-
-    //Saves the Solution - PDF
-    Save_Pdf(worksheed_pointer, _Solutions);
-
-    //ends the hole progress with generating a pdf
-    HPDF_Free(worksheed_pointer->pdf);
-}
 
 
 

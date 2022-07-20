@@ -12,20 +12,19 @@
 
 
 
-
-void *Handle_Worksheed()
+void *WCO_Background_Handle()
 {
     while(1)
     {
         while(!worksheed_instanze.init_complete);
 
-        Update_Decimal_Places(&worksheed_instanze);
+        WCO_Background_Controll_DecimalPlaces(&worksheed_instanze);
 
-        Update_Number_Type(&worksheed_instanze);
+        WCO_Background_Controll_Visibility(&worksheed_instanze);
     }
 }
 
-void Update_Decimal_Places(struct worksheed *worksheed_pointer)
+void WCO_Background_Controll_DecimalPlaces(struct worksheed *worksheed_pointer)
 {
     if (!worksheed_pointer->update_decimal_places)
     {
@@ -44,7 +43,7 @@ void Update_Decimal_Places(struct worksheed *worksheed_pointer)
     }
 }
 
-void Update_Number_Type(struct worksheed *worksheed_pointer)
+void WCO_Background_Controll_Visibility(struct worksheed *worksheed_pointer)
 {
     if (!worksheed_pointer->update_number_type)
     {

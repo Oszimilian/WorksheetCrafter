@@ -41,9 +41,10 @@ GtkWidget *MySpinButton7;
 GtkWidget *MySpinButton8;
 GtkWidget *MySpinButton9;
 
-void *Start_GUI(void *vargp);
+
 void exitApp();
 void MyButton1_Clicked(GtkButton *b);
+void MyButton2_Clicked(GtkButton *b);
 void MyCheckButton1_Toggled(GtkCheckButton *b);
 void MyCheckButton2_Toggled(GtkCheckButton *b);
 void MyCheckButton3_Toggled(GtkCheckButton *b);
@@ -108,29 +109,42 @@ struct worksheed{
 //For jumping through the sourcecode
 jmp_buf env;
 
+
+//GUI
+void *WCO_GUI_Start(void *vargp);
+    //static void *WCO_GUI_PDFViewer_1_Start();
+    //static void *WCO_GUI_PDFViewer_2_Start();
+void *WCO_GUI_PDFViewer();
+void WCO_GUI_ClosePDF(struct worksheed *worksheed_pointer);
+void WCO_GUI_ClosePDFViewer(struct worksheed *worksheed_pointer);
+
+//BACKGROUND
+void *WCO_Background_Handle();
+void WCO_Background_Controll_DecimalPlaces(struct worksheed *worksheed_pointer);
+void WCO_Background_Controll_Visibility(struct worksheed *worksheed_pointer);
+
+//PDF
 void Error_Handler (HPDF_STATUS error_no, HPDF_STATUS detail_no, void *user_data);
-int Check_Pdf(struct worksheed *worksheed_pointer);
-void Setup_Page(struct worksheed *worksheed_pointer, int page_count);
-void Write_Text(struct worksheed *worksheed_pointer, int x, int y, char text[20], int page_count);
-void Set_Filename(struct worksheed *worksheed_pointer, int nummer,  char name[20]);
-void Save_Pdf(struct worksheed *worksheed_pointer, int page_count);
+int WCO_PDF_Check(struct worksheed *worksheed_pointer);
+void WCO_PDF_SetupPage(struct worksheed *worksheed_pointer, int page_count);
+void WCO_PDF_SetFilename(struct worksheed *worksheed_pointer, int nummer,  char name[20]);
+void WCO_PDF_WriteText(struct worksheed *worksheed_pointer, int x, int y, char text[0], int page_count);
+void WCO_PDF_SavePDF(struct worksheed *worksheed_pointer, int page_count);
+void WCO_PDF_DrawSolutionLine(struct worksheed *worksheed_pointer,char tmp[], int x1, int y1, int line_lengh, int page_counter);
+void WCO_PDF_DrawLine(struct worksheed *worksheed_pointer, int x1, int y1, int x2, int y2, int page_counter);
 
-void Close_PDF(struct worksheed *worksheed_pointer);
-void Close_WorksheedCrafter(struct worksheed *worksheed_pointer);
-void Draw_Solution_Line(struct worksheed *worksheed_pointer,char tmp[], int x1, int y1, int line_lengh, int page_counter);
-void Draw_Line(struct worksheed *worksheed_pointer, int x1, int y1, int x2, int y2, int page_counter);
-void Start_Pdf(struct worksheed *worksheed_pointer);
-void *Handle_PDF_Viewer();
-void *Handle_Worksheed();
-void Update_Number_Type(struct worksheed *worksheed_pointer);
-void Update_Decimal_Places(struct worksheed *worksheed_pointer);
+//WORKSHEED_ADJUST
+void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_pointer, int setting);
+int WCO_Worksheet_Adjust_InitWorksheetSettings(struct worksheed *worksheed_pointer);
+
+//WORSHEED_CREATE
+void WCO_Worksheet_Create_Start(struct worksheed *worksheed_pointer);
+void WCO_Worksheet_Creat_TaskSheet(struct worksheed *worksheed_pointer);
+void WCO_Worksheet_Create_SolutionSheed(struct worksheed *worksheed_pointer);
+void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int counter);
+void WCO_Worksheet_Creat_Baseboard(struct worksheed *worksheed_pointer, int page_counter);
 
 
-int Init_Task_Settings(struct worksheed *worksheed_pointer);
-void Change_Task_Settings(struct worksheed *worksheed_pointer, int setting);
-void Create_Task_Sheed(struct worksheed *worksheed_pointer);
-void Creat_Solution_Sheed(struct worksheed *worksheed_pointer);
-void Create_Random_Task(struct worksheed *worksheed_pointer, int counter);
-void Create_Baseboard(struct worksheed *worksheed_pointer, int page_counter);
+
 
 #endif // WORKSHEEDCRAFTER_H_INCLUDED
