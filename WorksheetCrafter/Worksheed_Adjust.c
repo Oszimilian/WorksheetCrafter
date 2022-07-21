@@ -26,7 +26,7 @@ void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_po
         }
     }
 
-    if(setting == _Subtraction)
+    else if(setting == _Subtraction)
     {
         if (worksheed_pointer->WCO_Worksheet_subtractionEnableFlag)
         {
@@ -36,7 +36,7 @@ void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_po
         }
     }
 
-    if(setting == _Multiplication)
+    else if(setting == _Multiplication)
     {
         if (worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag)
         {
@@ -46,7 +46,7 @@ void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_po
         }
     }
 
-    if(setting == _Division)
+    else if(setting == _Division)
     {
         if (worksheed_pointer->WCO_Worksheet_divisonEnableFlag)
         {
@@ -56,7 +56,7 @@ void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_po
         }
     }
 
-    if(setting == _Zahlentyp)
+    else if(setting == _Zahlentyp)
     {
         if (worksheed_pointer->WCO_Worksheet_zNumberEnableFlag && !worksheed_pointer->WCO_Worksheet_rNumberEnableFlag)
         {
@@ -68,7 +68,7 @@ void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_po
         }
     }
 
-    if(setting == _Baseboard)
+    else if(setting == _Baseboard)
     {
         if (worksheed_pointer->WCO_Worksheet_baseboardEnableFlag)
         {
@@ -79,6 +79,30 @@ void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_po
     }
 
     worksheed_pointer->WCO_Background_updateWorksheetSettingsComplete = false;
+}
+
+void WCO_Worksheet_Adjust_ChangeWorksheetValues(struct worksheed *worksheed_pointer, int count, int value)
+{
+    switch(count)
+    {
+        case _Addition_Min: worksheed_pointer->WCO_Worksheet_number1_additionDigit = value;  break;
+        case _Addition_Max: worksheed_pointer->WCO_Worksheet_number2_additionDigit = value; break;
+        case _Subtraction_Min: worksheed_pointer->WCO_Worksheet_number1_subtractionDigit = value; break;
+        case _Subtraction_Max: worksheed_pointer->WCO_Worksheet_number2_subtractionDigit = value; break;
+        case _Multiplication_Min: worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit = value; break;
+        case _Multiplication_Max: worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit = value; break;
+        case _Division_Min: worksheed_pointer->WCO_Worksheet_number1_divisionDigit = value; break;
+        case _Division_Max: worksheed_pointer->WCO_Worksheet_number2_divisionDigit = value; break;
+
+        case _Addition_DecimalPlaces: worksheed_pointer->WCO_Worksheet_additionDecimalPlaces = value; break;
+        case _Subtraction_DecimalPlaces: worksheed_pointer->WCO_Worksheet_subtractionDecimalPlaces = value; break;
+        case _Multiplication_DecimalPlaces: worksheed_pointer->WCO_Worksheet_multiplicationDecimalPlaces = value; break;
+        case _Division_DecimalPlaces: worksheed_pointer->WCO_Worksheet_divisionDecimalPlaces = value; break;
+
+       default: break;
+    }
+
+    worksheed_pointer->WCO_Background_updateDecimalPlacesComplete = false;
 }
 
 /*
@@ -114,7 +138,7 @@ int WCO_Worksheet_Adjust_InitWorksheetSettings(struct worksheed *worksheed_point
 
     //worksheed_pointer->WCO_Worksheet_decimalPlaces = 0;
 
-    worksheed_pointer->WCO_Worksheet_updateDecimalPlacesComplete = false;
+    worksheed_pointer->WCO_Background_updateDecimalPlacesComplete = false;
     worksheed_pointer->WCO_Background_updateWorksheetSettingsComplete = false;
 
     worksheed_pointer->WCO_GUI_controllCreatButtonFlag = true;

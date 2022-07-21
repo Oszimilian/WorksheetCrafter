@@ -2991,7 +2991,7 @@
 
 1658263568 D
 
-1658423010 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
+1658437271 /home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/WorksheedCrafter.h
 
 1658333378 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI_manager.c
 	<stdio.h>
@@ -3079,7 +3079,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1658422833 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Background.c
+1658438827 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Background.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3105,7 +3105,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1658423023 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Adjust.c
+1658436727 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/Worksheed_Adjust.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>
@@ -3130,7 +3130,7 @@
 	"hpdf.h"
 	"WorksheedCrafter.h"
 
-1658423010 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI.c
+1658438548 source:/home/maximilian/Git/WorksheetCrafter/WorksheetCrafter/GUI.c
 	<stdio.h>
 	<stdlib.h>
 	<gtk/gtk.h>

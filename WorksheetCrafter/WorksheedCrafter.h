@@ -16,6 +16,19 @@
 #define _Zahlentyp 4
 #define _Baseboard 5
 
+#define _Addition_Min 0
+#define _Addition_Max 1
+#define _Subtraction_Min 2
+#define _Subtraction_Max 3
+#define _Multiplication_Min 4
+#define _Multiplication_Max 5
+#define _Division_Min 6
+#define _Division_Max 7
+#define _Addition_DecimalPlaces 8
+#define _Subtraction_DecimalPlaces 9
+#define _Multiplication_DecimalPlaces 10
+#define _Division_DecimalPlaces 11
+
 
 GtkBuilder *MyBuilder;
 GtkWidget *MyWindow1;
@@ -124,7 +137,7 @@ struct worksheed{
     int WCO_Worksheet_baseboardThreashold;
 
     int WCO_Worksheet_initWorksheetComplete;
-    int WCO_Worksheet_updateDecimalPlacesComplete;
+    int WCO_Background_updateDecimalPlacesComplete;
 
     int WCO_Background_updateWorksheetSettingsComplete;
 }worksheed_instanze;
@@ -159,6 +172,7 @@ void WCO_PDF_DrawLine(struct worksheed *worksheed_pointer, int x1, int y1, int x
 //WORKSHEED_ADJUST
 void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_pointer, int setting);
 int WCO_Worksheet_Adjust_InitWorksheetSettings(struct worksheed *worksheed_pointer);
+void WCO_Worksheet_Adjust_ChangeWorksheetValues(struct worksheed *worksheed_pointer, int count, int value);
 
 //WORSHEED_CREATE
 void WCO_Worksheet_Create_Start(struct worksheed *worksheed_pointer);

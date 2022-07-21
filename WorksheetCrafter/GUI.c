@@ -126,19 +126,19 @@ void MySpinButton1_Changed(GtkSpinButton *s)
 {
     //gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton1));
     //worksheed_instanze.WCO_Worksheet_decimalPlaces = (int)spin_value;
-    //worksheed_instanze.WCO_Worksheet_updateDecimalPlacesComplete = false;
+    //worksheed_instanze.WCO_Background_updateDecimalPlacesComplete = false;
 }
 /**********************************************************************************************************************************************************************************/
 
 
 
 /*
-*   function changes the max count of digits for the first part of the addition
+*   function changes the min count of digits for the first part of the addition
 */
 void MySpinButton2_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton2));
-    worksheed_instanze.WCO_Worksheet_number1_additionDigit = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Addition_Min, (int)spin_value);
 }
 
 /*
@@ -147,16 +147,16 @@ void MySpinButton2_Changed(GtkSpinButton *s)
 void MySpinButton8_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton8));
-    worksheed_instanze.WCO_Worksheet_number2_additionDigit = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Addition_Max, (int)spin_value);
 }
 
 /*
-*   function changes the max count of digits for the first part of the subtraction
+*   function changes the min count of digits for the first part of the subtraction
 */
 void MySpinButton5_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton5));
-    worksheed_instanze.WCO_Worksheet_number1_subtractionDigit = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Subtraction_Min, (int)spin_value);
 }
 
 /*
@@ -165,17 +165,16 @@ void MySpinButton5_Changed(GtkSpinButton *s)
 void MySpinButton9_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton9));
-    worksheed_instanze.WCO_Worksheet_number2_subtractionDigit = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze,_Subtraction_Max, (int)spin_value);
 }
 
 /*
-*   function changes the max count of digits for the first part of the multiplication
+*   function changes the mix count of digits for the first part of the multiplication
 */
 void MySpinButton3_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton3));
-    worksheed_instanze.WCO_Worksheet_number1_multiplicationDigit = (int)spin_value;
-    worksheed_instanze.WCO_Worksheet_updateDecimalPlacesComplete = false;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Multiplication_Min, (int)spin_value);
 }
 
 /*
@@ -184,17 +183,16 @@ void MySpinButton3_Changed(GtkSpinButton *s)
 void MySpinButton4_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton4));
-    worksheed_instanze.WCO_Worksheet_number2_multiplicationDigit = (int)spin_value;
-    worksheed_instanze.WCO_Worksheet_updateDecimalPlacesComplete = false;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Multiplication_Max, (int)spin_value);
 }
 
 /*
-*   function changes the max count of digits for the first part of the division
+*   function changes the mix count of digits for the first part of the division
 */
 void MySpinButton6_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton6));
-    worksheed_instanze.WCO_Worksheet_number1_divisionDigit = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Division_Min, (int)spin_value);
 }
 
 /*
@@ -203,7 +201,7 @@ void MySpinButton6_Changed(GtkSpinButton *s)
 void MySpinButton7_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton7));
-    worksheed_instanze.WCO_Worksheet_number2_divisionDigit = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Division_Max, (int)spin_value);
 }
 
 /**********************************************************************************************************************/
@@ -213,7 +211,7 @@ void MySpinButton7_Changed(GtkSpinButton *s)
 void MySpinButton10_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton10));
-    worksheed_instanze.WCO_Worksheet_additionDecimalPlaces = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Addition_DecimalPlaces, (int)spin_value);
 
     if ((int)spin_value == 0)
     {
@@ -229,7 +227,7 @@ void MySpinButton10_Changed(GtkSpinButton *s)
 void MySpinButton11_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton11));
-    worksheed_instanze.WCO_Worksheet_subtractionDecimalPlaces = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Subtraction_DecimalPlaces, (int)spin_value);
 
     if ((int)spin_value == 0)
     {
@@ -245,7 +243,7 @@ void MySpinButton11_Changed(GtkSpinButton *s)
 void MySpinButton12_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton12));
-    worksheed_instanze.WCO_Worksheet_multiplicationDecimalPlaces = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Multiplication_DecimalPlaces, (int)spin_value);
 
     if ((int)spin_value == 0)
     {
@@ -261,7 +259,7 @@ void MySpinButton12_Changed(GtkSpinButton *s)
 void MySpinButton13_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton13));
-    worksheed_instanze.WCO_Worksheet_divisionDecimalPlaces = (int)spin_value;
+    WCO_Worksheet_Adjust_ChangeWorksheetValues(&worksheed_instanze, _Division_DecimalPlaces, (int)spin_value);
 
     if ((int)spin_value == 0)
     {

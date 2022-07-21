@@ -26,24 +26,54 @@ void *WCO_Background_Handle()
 
 /**********************************************************************************************************************************************************************************/
 /*
-*
+*   function is responsible for looking after logic failures
+*   If one of the number digits of a task is lower as as the nachkommastellen, that makes no sense. This function prevent this
 */
 void WCO_Background_Controll_DecimalPlaces(struct worksheed *worksheed_pointer)
 {
-    if (!worksheed_pointer->WCO_Worksheet_updateDecimalPlacesComplete)
+    if (!worksheed_pointer->WCO_Background_updateDecimalPlacesComplete)
     {
-        int max_range;
-        int min_range = 1;
-        if(worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit < worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit)
+        int additionDigitRange;
+        int subtractionDigitRange;
+        int multiplicationDigitRange;
+        int divisionDigitRange;
+        int min_range = 0;
+
+        if (worksheed_pointer->WCO_Worksheet_number1_additionDigit < worksheed_pointer->WCO_Worksheet_number2_additionDigit)
         {
-            max_range = worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit;
+            additionDigitRange = worksheed_pointer->WCO_Worksheet_number1_additionDigit;
         }else{
-            max_range = worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit;
+            additionDigitRange = worksheed_pointer->WCO_Worksheet_number2_additionDigit;
         }
 
-        gtk_spin_button_set_range(GTK_SPIN_BUTTON(MySpinButton1), (double)min_range, (double)max_range);
+        if (worksheed_pointer->WCO_Worksheet_number1_subtractionDigit < worksheed_pointer->WCO_Worksheet_number2_subtractionDigit)
+        {
+            subtractionDigitRange = worksheed_pointer->WCO_Worksheet_number1_subtractionDigit;
+        }else{
+            subtractionDigitRange = worksheed_pointer->WCO_Worksheet_number2_subtractionDigit;
+        }
 
-        worksheed_instanze.WCO_Worksheet_updateDecimalPlacesComplete = true;
+        if (worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit < worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit)
+        {
+            multiplicationDigitRange = worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit;
+        }else{
+            multiplicationDigitRange = worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit;
+        }
+
+        if (worksheed_pointer->WCO_Worksheet_number1_divisionDigit < worksheed_pointer->WCO_Worksheet_number2_divisionDigit)
+        {
+            divisionDigitRange = worksheed_pointer->WCO_Worksheet_number1_divisionDigit;
+        }else{
+            divisionDigitRange = worksheed_pointer->WCO_Worksheet_number2_divisionDigit;
+        }
+
+
+        gtk_spin_button_set_range(GTK_SPIN_BUTTON(MySpinButton10), (double)min_range, (double)additionDigitRange);
+        gtk_spin_button_set_range(GTK_SPIN_BUTTON(MySpinButton11), (double)min_range, (double)subtractionDigitRange);
+        gtk_spin_button_set_range(GTK_SPIN_BUTTON(MySpinButton12), (double)min_range, (double)multiplicationDigitRange);
+        gtk_spin_button_set_range(GTK_SPIN_BUTTON(MySpinButton13), (double)min_range, (double)divisionDigitRange);
+
+        worksheed_instanze.WCO_Background_updateDecimalPlacesComplete = true;
     }
 }
 
