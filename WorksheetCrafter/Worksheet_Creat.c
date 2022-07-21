@@ -59,7 +59,7 @@ void WCO_Worksheet_Creat_TaskSheet(struct worksheed *worksheed_pointer)
 {
     WCO_Worksheet_Creat_Baseboard(worksheed_pointer, _Tasks);
 
-    int size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Tasks]) - worksheed_pointer->baseboard_treashold;
+    int size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Tasks]) - worksheed_pointer->WCO_Worksheet_baseboardThreashold;
     int task_counter = 0;
     int x;
 
@@ -91,7 +91,7 @@ void WCO_Worksheet_Creat_TaskSheet(struct worksheed *worksheed_pointer)
 
         }
 
-        size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Tasks]) - worksheed_pointer->baseboard_treashold;
+        size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Tasks]) - worksheed_pointer->WCO_Worksheet_baseboardThreashold;
 
     }
 
@@ -104,7 +104,7 @@ void WCO_Worksheet_Create_SolutionSheed(struct worksheed *worksheed_pointer)
 {
     WCO_Worksheet_Creat_Baseboard(worksheed_pointer, _Solutions);
 
-    int size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Solutions]) - worksheed_pointer->baseboard_treashold;
+    int size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Solutions]) - worksheed_pointer->WCO_Worksheet_baseboardThreashold;
     int task_counter = 0;
     int x;
 
@@ -131,7 +131,7 @@ void WCO_Worksheet_Create_SolutionSheed(struct worksheed *worksheed_pointer)
             //printf("-> %s \n", worksheed_pointer->WCO_Worksheet_solutionArray[task_counter]);
         }
 
-        size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Solutions]) - worksheed_pointer->baseboard_treashold;
+        size_counter = HPDF_Page_GetHeight(worksheed_pointer->page[_Solutions]) - worksheed_pointer->WCO_Worksheet_baseboardThreashold;
 
     }
 
@@ -157,6 +157,11 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
     int operand;
     int operand_check = 0;
 
+    /*
+    *   Generate a operand
+    *   If All OperandFlags are false this while-loop will be skipped
+    *   If one, two, or three Operand Flags are false this will-loop will generate random typs of operands untill a not denied one appears
+    */
     while(!operand_check)
     {
         operand = rand() % 4;
@@ -192,96 +197,57 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
         }
     }
 
-    if(operand == 0)
+    /*
+    *   This part
+    */
+    int number1Digit;
+    int number2Digit;
+
+    switch(operand)
     {
-        switch(worksheed_pointer->WCO_Worksheet_number1_additionDigit)
-        {
-            case 1: max_rand_1 = 10; break;
-            case 2: max_rand_1 = 100; break;
-            case 3: max_rand_1 = 1000; break;
-            case 4: max_rand_1 = 10000; break;
-            case 5: max_rand_1 = 100000; break;
-            default: break;
-        }
+        case 0: number1Digit = worksheed_pointer->WCO_Worksheet_number1_additionDigit;
+                number2Digit = worksheed_pointer->WCO_Worksheet_number2_additionDigit;
+        break;
 
-        switch(worksheed_pointer->WCO_Worksheet_number2_additionDigit)
-        {
-            case 1: max_rand_2 = 10; break;
-            case 2: max_rand_2 = 100; break;
-            case 3: max_rand_2 = 1000; break;
-            case 4: max_rand_2 = 10000; break;
-            case 5: max_rand_2 = 100000; break;
-            default: break;
-        }
-    }
-    else if(operand == 1)
-    {
-        switch(worksheed_pointer->WCO_Worksheet_number1_subtractionDigit)
-        {
-            case 1: max_rand_1 = 10; break;
-            case 2: max_rand_1 = 100; break;
-            case 3: max_rand_1 = 1000; break;
-            case 4: max_rand_1 = 10000; break;
-            case 5: max_rand_1 = 100000; break;
-            default: break;
-        }
+        case 1: number1Digit = worksheed_pointer->WCO_Worksheet_number1_subtractionDigit;
+                number2Digit = worksheed_pointer->WCO_Worksheet_number2_subtractionDigit;
+        break;
 
-        switch(worksheed_pointer->WCO_Worksheet_number2_subtractionDigit)
-        {
-            case 1: max_rand_2 = 10; break;
-            case 2: max_rand_2 = 100; break;
-            case 3: max_rand_2 = 1000; break;
-            case 4: max_rand_2 = 10000; break;
-            case 5: max_rand_2 = 100000; break;
-            default: break;
-        }
-    }
-    else if(operand == 2)
-    {
-        switch(worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit)
-        {
-            case 1: max_rand_1 = 10; break;
-            case 2: max_rand_1 = 100; break;
-            case 3: max_rand_1 = 1000; break;
-            case 4: max_rand_1 = 10000; break;
-            case 5: max_rand_1 = 100000; break;
-            default: break;
-        }
+        case 2: number1Digit = worksheed_pointer->WCO_Worksheet_number1_multiplicationDigit;
+                number2Digit = worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit;
+        break;
 
-        switch(worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit)
-        {
-            case 1: max_rand_2 = 10; break;
-            case 2: max_rand_2 = 100; break;
-            case 3: max_rand_2 = 1000; break;
-            case 4: max_rand_2 = 10000; break;
-            case 5: max_rand_2 = 100000; break;
-            default: break;
-        }
-    }
-    else if(operand == 3)
-    {
-        switch(worksheed_pointer->WCO_Worksheet_number1_divisionDigit)
-        {
-            case 1: max_rand_1 = 10; break;
-            case 2: max_rand_1 = 100; break;
-            case 3: max_rand_1 = 1000; break;
-            case 4: max_rand_1 = 10000; break;
-            case 5: max_rand_1 = 100000; break;
-            default: break;
-        }
+        case 3: number1Digit = worksheed_pointer->WCO_Worksheet_number1_divisionDigit;
+                number2Digit = worksheed_pointer->WCO_Worksheet_number2_divisionDigit;
+        break;
 
-        switch(worksheed_pointer->WCO_Worksheet_number2_divisionDigit)
-        {
-            case 1: max_rand_2 = 10; break;
-            case 2: max_rand_2 = 100; break;
-            case 3: max_rand_2 = 1000; break;
-            case 4: max_rand_2 = 10000; break;
-            case 5: max_rand_2 = 100000; break;
-            default: break;
-        }
-
+        default: break;
     }
 
+    switch(number1Digit)
+    {
+        case 1: max_rand_1 = 10; break;
+        case 2: max_rand_1 = 100; break;
+        case 3: max_rand_1 = 1000; break;
+        case 4: max_rand_1 = 10000; break;
+        case 5: max_rand_1 = 100000; break;
+        default: break;
+    }
+
+    switch(number2Digit)
+    {
+        case 1: max_rand_2 = 10; break;
+        case 2: max_rand_2 = 100; break;
+        case 3: max_rand_2 = 1000; break;
+        case 4: max_rand_2 = 10000; break;
+        case 5: max_rand_2 = 100000; break;
+        default: break;
+    }
+
+    /*
+    *   This part generates random numbers until the generated number is higher than zero
+    *   Secondly the int number is casted into float datatyp
+    */
     do
     {
         first_num = rand() % max_rand_1;
@@ -290,28 +256,31 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
         second_num_float = (float)second_num;
     }while(max_rand_1 < 0 && max_rand_2 < 0);
 
-
-    while(1)
+    /*
+    *   If all operationflags are disabled the creat button disappears and a warning message appears
+    */
+    while(!worksheed_pointer->WCO_GUI_controllCreatButtonFlag)
     {
-
-        if (operand == 0 && worksheed_pointer->WCO_Worksheet_additionEnableFlag) break;
-        if (operand == 1 && worksheed_pointer->WCO_Worksheet_subtractionEnableFlag) break;
-        if (operand == 2 && worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag) break;
-        if (operand == 3 && worksheed_pointer->WCO_Worksheet_divisonEnableFlag) break;
-
-
-
-        if (!worksheed_pointer->WCO_Worksheet_additionEnableFlag && !worksheed_pointer->WCO_Worksheet_subtractionEnableFlag && !worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag && !worksheed_pointer->WCO_Worksheet_divisonEnableFlag)
-        {
-            gtk_label_set_text(MyLabel1, "Sie müssen auf jeden Fall einen Operator auswählen!");
-            WCO_GUI_ClosePDFViewer(&worksheed_instanze);
-
-            while(worksheed_pointer->WCO_Worksheet_additionEnableFlag || worksheed_pointer->WCO_Worksheet_subtractionEnableFlag || worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag || worksheed_pointer->WCO_Worksheet_divisonEnableFlag) {}
-            break;
-        }
+        gtk_label_set_text(MyLabel1, "Sie müssen auf jeden Fall einen Operator auswählen!");
     }
 
-    if (worksheed_pointer->WCO_Worksheet_zNumberEnableFlag && !worksheed_pointer->WCO_Worksheet_rNumberEnableFlag)
+    /*
+    *   stores the DecimalPlaces dependent of the operand into a local var "localDecimalPlaces"
+    */
+    int localDecimalPlaces;
+    switch(operand)
+    {
+        case 0: localDecimalPlaces = worksheed_pointer->WCO_Worksheet_additionDecimalPlaces; break;
+        case 1: localDecimalPlaces = worksheed_pointer->WCO_Worksheet_subtractionDecimalPlaces; break;
+        case 2: localDecimalPlaces = worksheed_pointer->WCO_Worksheet_multiplicationDecimalPlaces; break;
+        case 3: localDecimalPlaces = worksheed_pointer->WCO_Worksheet_divisionDecimalPlaces; break;
+    }
+
+    /*
+    *   if the current DecimalPlaces count is zero the task is print as a integer
+    *   Otherwise the task is print as a float with the demanded decimal place
+    */
+    if (localDecimalPlaces == 0)
     {
         switch(operand)
         {
@@ -325,13 +294,11 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
         sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%d %c %d = ", first_num, task_operand, second_num);
 
         sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%d %c %d = %.2f", first_num, task_operand, second_num, solution);
-    }
 
-    if (!worksheed_pointer->WCO_Worksheet_zNumberEnableFlag && worksheed_pointer->WCO_Worksheet_rNumberEnableFlag)
-    {
-        switch(worksheed_pointer->WCO_Worksheet_decimalPlaces)
+    }else{
+
+        switch(localDecimalPlaces)
         {
-            case 0: first_num_float *= 1; second_num_float *= 1; break;
             case 1: first_num_float *= 0.1; second_num_float *= 0.1; break;
             case 2: first_num_float *= 0.01; second_num_float *= 0.01; break;
             case 3: first_num_float *= 0.001; second_num_float *= 0.001; break;
@@ -349,13 +316,8 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
             default: break;
         }
 
-        switch(worksheed_pointer->WCO_Worksheet_decimalPlaces)
+        switch(localDecimalPlaces)
         {
-            case 0:
-                    sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%.0f %c %.0f = ", first_num_float, task_operand, second_num_float);
-                    sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%.0f %c %.0f = %.2f", first_num_float, task_operand, second_num_float, solution);
-            break;
-
             case 1:
                     sprintf(worksheed_pointer->WCO_Worksheet_taskArray[counter], "%.1f %c %.1f = ", first_num_float, task_operand, second_num_float);
                     sprintf(worksheed_pointer->WCO_Worksheet_solutionArray[counter], "%.1f %c %.1f = %.2f", first_num_float, task_operand, second_num_float, solution);
@@ -392,13 +354,13 @@ void WCO_Worksheet_Create_RandomTask(struct worksheed *worksheed_pointer, int co
 */
 void WCO_Worksheet_Creat_Baseboard(struct worksheed *worksheed_pointer, int page_counter)
 {
-    if (worksheed_pointer->baseboard_flag)
+    if (worksheed_pointer->WCO_Worksheet_baseboardEnableFlag)
     {
         int startx1 = HPDF_Page_GetWidth(worksheed_pointer->page[page_counter]) - (HPDF_Page_GetWidth(worksheed_pointer->page[page_counter]) * 0.9);
         int startx2 = HPDF_Page_GetWidth(worksheed_pointer->page[page_counter]) - (HPDF_Page_GetWidth(worksheed_pointer->page[page_counter]) * 0.5);
         int startx3 = HPDF_Page_GetWidth(worksheed_pointer->page[page_counter]) - (HPDF_Page_GetWidth(worksheed_pointer->page[page_counter]) * 0.3);
 
-        worksheed_pointer->baseboard_treashold = 150;
+        worksheed_pointer->WCO_Worksheet_baseboardThreashold = 150;
 
         WCO_PDF_WriteText(worksheed_pointer, startx1, 775, "Name:", page_counter);
         WCO_PDF_DrawSolutionLine(worksheed_pointer, "Name:  ", startx1, 770, 150, page_counter);
@@ -421,7 +383,7 @@ void WCO_Worksheet_Creat_Baseboard(struct worksheed *worksheed_pointer, int page
         WCO_PDF_DrawLine(worksheed_pointer, 50, 750, HPDF_Page_GetWidth(worksheed_pointer->page[page_counter]) - 50, 750, page_counter);
 
     }else{
-        worksheed_pointer->baseboard_treashold = 0;
+        worksheed_pointer->WCO_Worksheet_baseboardThreashold = 0;
     }
 }
 

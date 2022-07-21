@@ -21,6 +21,10 @@ void *WCO_GUI_Start(void *vargp)
     MyWindow1 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyWindow"));
     MyFixed1 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyFixed1"));
     MyLabel1 = GTK_LABEL(gtk_builder_get_object(MyBuilder, "MyLabel1"));
+    MyLabel2 = GTK_LABEL(gtk_builder_get_object(MyBuilder, "MyLabel2"));
+    MyLabel3 = GTK_LABEL(gtk_builder_get_object(MyBuilder, "MyLabel3"));
+    MyLabel4 = GTK_LABEL(gtk_builder_get_object(MyBuilder, "MyLabel4"));
+    MyLabel5 = GTK_LABEL(gtk_builder_get_object(MyBuilder, "MyLabel5"));
     MyButton1 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyButton1"));
     MyButton2 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyButton2"));
     MyButton3 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MyButton3"));
@@ -40,8 +44,12 @@ void *WCO_GUI_Start(void *vargp)
     MySpinButton7 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton7"));
     MySpinButton8 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton8"));
     MySpinButton9 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton9"));
+    MySpinButton10 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton10"));
+    MySpinButton11 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton11"));
+    MySpinButton12 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton12"));
+    MySpinButton13 = GTK_WIDGET(gtk_builder_get_object(MyBuilder, "MySpinButton13"));
 
-    worksheed_instanze.init_complete = WCO_Worksheet_Adjust_InitWorksheetSettings(&worksheed_instanze);
+    worksheed_instanze.WCO_Worksheet_initWorksheetComplete = WCO_Worksheet_Adjust_InitWorksheetSettings(&worksheed_instanze);
 
     gtk_builder_connect_signals(MyBuilder, NULL);
 
@@ -69,8 +77,6 @@ void MyButton1_Clicked(GtkButton *b)
     worksheed_instanze.WCO_GUI_showPDFViewerFlag = 1;
 
     WCO_Worksheet_Create_Start(&worksheed_instanze);
-
-
 }
 
 void MyButton2_Clicked(GtkButton *b)
@@ -103,25 +109,26 @@ void MyCheckButton5_Toggled(GtkCheckButton *b)
     WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Baseboard);
 }
 
+/**********************************************************************************************************************************************************************************/
 void MyRadioButton1_Toggled(GtkRadioButton *b)
 {
-    WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Zahlentyp);
-    worksheed_instanze.update_number_type = false;
+    //WCO_Worksheet_Adjust_ChangeWorksheetSettings(&worksheed_instanze, _Zahlentyp);
+    //worksheed_instanze.WCO_Background_updateWorksheetSettingsComplete = false;
 }
 
 void MyRadioButton2_Toggled(GtkRadioButton *b)
 {
     //Not relevant because it is connected in with RadioButton1 int the glade file and also in the programm
-    worksheed_instanze.update_number_type = false;
+    //worksheed_instanze.WCO_Background_updateWorksheetSettingsComplete = false;
 }
 
 void MySpinButton1_Changed(GtkSpinButton *s)
 {
-    gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton1));
-    worksheed_instanze.WCO_Worksheet_decimalPlaces = (int)spin_value;
-    worksheed_instanze.update_WCO_Worksheet_decimalPlaces = false;
+    //gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton1));
+    //worksheed_instanze.WCO_Worksheet_decimalPlaces = (int)spin_value;
+    //worksheed_instanze.WCO_Worksheet_updateDecimalPlacesComplete = false;
 }
-
+/**********************************************************************************************************************************************************************************/
 
 
 
@@ -168,7 +175,7 @@ void MySpinButton3_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton3));
     worksheed_instanze.WCO_Worksheet_number1_multiplicationDigit = (int)spin_value;
-    worksheed_instanze.update_WCO_Worksheet_decimalPlaces = false;
+    worksheed_instanze.WCO_Worksheet_updateDecimalPlacesComplete = false;
 }
 
 /*
@@ -178,7 +185,7 @@ void MySpinButton4_Changed(GtkSpinButton *s)
 {
     gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton4));
     worksheed_instanze.WCO_Worksheet_number2_multiplicationDigit = (int)spin_value;
-    worksheed_instanze.update_WCO_Worksheet_decimalPlaces = false;
+    worksheed_instanze.WCO_Worksheet_updateDecimalPlacesComplete = false;
 }
 
 /*
@@ -199,10 +206,72 @@ void MySpinButton7_Changed(GtkSpinButton *s)
     worksheed_instanze.WCO_Worksheet_number2_divisionDigit = (int)spin_value;
 }
 
+/**********************************************************************************************************************/
 /*
-*   This task initialices the base for making the math-pdf and wait for the call to start generating a pdf
+*   function changes the decimalplaces for addition
 */
+void MySpinButton10_Changed(GtkSpinButton *s)
+{
+    gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton10));
+    worksheed_instanze.WCO_Worksheet_additionDecimalPlaces = (int)spin_value;
 
+    if ((int)spin_value == 0)
+    {
+        gtk_label_set_text(MyLabel2, "Z");
+    }else{
+        gtk_label_set_text(MyLabel2, "R");
+    }
+}
+
+/*
+*   function changes the decimalplaces for subtraction
+*/
+void MySpinButton11_Changed(GtkSpinButton *s)
+{
+    gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton11));
+    worksheed_instanze.WCO_Worksheet_subtractionDecimalPlaces = (int)spin_value;
+
+    if ((int)spin_value == 0)
+    {
+        gtk_label_set_text(MyLabel3, "Z");
+    }else{
+        gtk_label_set_text(MyLabel3, "R");
+    }
+}
+
+/*
+*   function changes the decimalplaces for multiplication
+*/
+void MySpinButton12_Changed(GtkSpinButton *s)
+{
+    gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton12));
+    worksheed_instanze.WCO_Worksheet_multiplicationDecimalPlaces = (int)spin_value;
+
+    if ((int)spin_value == 0)
+    {
+        gtk_label_set_text(MyLabel4, "Z");
+    }else{
+        gtk_label_set_text(MyLabel4, "R");
+    }
+}
+
+/*
+*   function changes the decimalplaces for division
+*/
+void MySpinButton13_Changed(GtkSpinButton *s)
+{
+    gdouble spin_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(MySpinButton13));
+    worksheed_instanze.WCO_Worksheet_divisionDecimalPlaces = (int)spin_value;
+
+    if ((int)spin_value == 0)
+    {
+        gtk_label_set_text(MyLabel5, "Z");
+    }else{
+        gtk_label_set_text(MyLabel5, "R");
+    }
+}
+
+/**********************************************************************************************************************/
 /*
 *   Shows the final task-pdf
 */

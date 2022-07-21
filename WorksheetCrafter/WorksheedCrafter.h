@@ -21,6 +21,10 @@ GtkBuilder *MyBuilder;
 GtkWidget *MyWindow1;
 GtkWidget *MyFixed1;
 GtkLabel  *MyLabel1;
+GtkLabel  *MyLabel2;
+GtkLabel  *MyLabel3;
+GtkLabel  *MyLabel4;
+GtkLabel  *MyLabel5;
 GtkWidget *MyButton1;
 GtkWidget *MyButton2;
 GtkWidget *MyButton3;
@@ -40,8 +44,13 @@ GtkWidget *MySpinButton6;
 GtkWidget *MySpinButton7;
 GtkWidget *MySpinButton8;
 GtkWidget *MySpinButton9;
+GtkWidget *MySpinButton10;
+GtkWidget *MySpinButton11;
+GtkWidget *MySpinButton12;
+GtkWidget *MySpinButton13;
 
 
+//GUI
 void exitApp();
 void MyButton1_Clicked(GtkButton *b);
 void MyButton2_Clicked(GtkButton *b);
@@ -61,6 +70,10 @@ void MySpinButton6_Changed(GtkSpinButton *s);
 void MySpinButton7_Changed(GtkSpinButton *s);
 void MySpinButton8_Changed(GtkSpinButton *s);
 void MySpinButton9_Changed(GtkSpinButton *s);
+void MySpinButton10_Changed(GtkSpinButton *s);
+void MySpinButton11_Changed(GtkSpinButton *s);
+void MySpinButton12_Changed(GtkSpinButton *s);
+void MySpinButton13_Changed(GtkSpinButton *s);
 
 
 
@@ -81,6 +94,7 @@ struct worksheed{
     char WCO_PDF_fileNames[2][30];
 
     int WCO_GUI_showPDFViewerFlag;
+    int WCO_GUI_controllCreatButtonFlag;
 
     int WCO_Worksheet_additionEnableFlag;
     int WCO_Worksheet_subtractionEnableFlag;
@@ -98,14 +112,21 @@ struct worksheed{
     int WCO_Worksheet_number2_multiplicationDigit;
     int WCO_Worksheet_number1_divisionDigit;
     int WCO_Worksheet_number2_divisionDigit;
-    int WCO_Worksheet_decimalPlaces;
 
-    int baseboard_flag;
-    int baseboard_treashold;
+    int WCO_Worksheet_additionDecimalPlaces;
+    int WCO_Worksheet_subtractionDecimalPlaces;
+    int WCO_Worksheet_multiplicationDecimalPlaces;
+    int WCO_Worksheet_divisionDecimalPlaces;
 
-    int init_complete;
-    int update_WCO_Worksheet_decimalPlaces;
-    int update_number_type;
+    //int WCO_Worksheet_decimalPlaces;
+
+    int WCO_Worksheet_baseboardEnableFlag;
+    int WCO_Worksheet_baseboardThreashold;
+
+    int WCO_Worksheet_initWorksheetComplete;
+    int WCO_Worksheet_updateDecimalPlacesComplete;
+
+    int WCO_Background_updateWorksheetSettingsComplete;
 }worksheed_instanze;
 
 //For jumping through the sourcecode
@@ -116,8 +137,6 @@ jmp_buf env;
 
 //GUI
 void *WCO_GUI_Start(void *vargp);
-    //static void *WCO_GUI_PDFViewer_1_Start();
-    //static void *WCO_GUI_PDFViewer_2_Start();
 void *WCO_GUI_PDFViewer();
 void WCO_GUI_ClosePDF(struct worksheed *worksheed_pointer);
 void WCO_GUI_ClosePDFViewer(struct worksheed *worksheed_pointer);

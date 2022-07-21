@@ -8,6 +8,26 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment10">
+    <property name="upper">5</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment11">
+    <property name="upper">5</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment12">
+    <property name="upper">5</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment13">
+    <property name="upper">5</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkAdjustment" id="adjustment2">
     <property name="lower">1</property>
     <property name="upper">5</property>
@@ -101,7 +121,7 @@
           </object>
           <packing>
             <property name="x">20</property>
-            <property name="y">30</property>
+            <property name="y">125</property>
           </packing>
         </child>
         <child>
@@ -116,7 +136,7 @@
           </object>
           <packing>
             <property name="x">20</property>
-            <property name="y">90</property>
+            <property name="y">185</property>
           </packing>
         </child>
         <child>
@@ -133,7 +153,7 @@
           </object>
           <packing>
             <property name="x">20</property>
-            <property name="y">150</property>
+            <property name="y">245</property>
           </packing>
         </child>
         <child>
@@ -150,7 +170,7 @@
           </object>
           <packing>
             <property name="x">20</property>
-            <property name="y">210</property>
+            <property name="y">305</property>
           </packing>
         </child>
         <child>
@@ -185,7 +205,7 @@
         </child>
         <child>
           <object class="GtkRadioButton" id="MyRadioButton1">
-            <property name="label" translatable="yes">Ganze Zahlen</property>
+            <property name="label" translatable="yes">Unused1</property>
             <property name="width_request">129</property>
             <property name="height_request">22</property>
             <property name="visible">True</property>
@@ -197,13 +217,13 @@
             <signal name="toggled" handler="MyRadioButton1_Toggled" swapped="no"/>
           </object>
           <packing>
-            <property name="x">20</property>
-            <property name="y">300</property>
+            <property name="x">763</property>
+            <property name="y">112</property>
           </packing>
         </child>
         <child>
           <object class="GtkRadioButton" id="MyRadioButton2">
-            <property name="label" translatable="yes">Reelle Zahlen</property>
+            <property name="label" translatable="yes">unused 2</property>
             <property name="width_request">128</property>
             <property name="height_request">22</property>
             <property name="visible">True</property>
@@ -214,8 +234,8 @@
             <signal name="toggled" handler="MyRadioButton2_Toggled" swapped="no"/>
           </object>
           <packing>
-            <property name="x">200</property>
-            <property name="y">300</property>
+            <property name="x">765</property>
+            <property name="y">81</property>
           </packing>
         </child>
         <child>
@@ -227,8 +247,8 @@
             <property name="label" translatable="yes">Output</property>
           </object>
           <packing>
-            <property name="x">406</property>
-            <property name="y">18</property>
+            <property name="x">481</property>
+            <property name="y">342</property>
           </packing>
         </child>
         <child>
@@ -245,7 +265,7 @@
           </object>
           <packing>
             <property name="x">20</property>
-            <property name="y">375</property>
+            <property name="y">450</property>
           </packing>
         </child>
         <child>
@@ -254,12 +274,13 @@
             <property name="height_request">34</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="text" translatable="yes">unused3</property>
             <property name="adjustment">adjustment1</property>
             <signal name="value-changed" handler="MySpinButton1_Changed" swapped="no"/>
           </object>
           <packing>
-            <property name="x">377</property>
-            <property name="y">294</property>
+            <property name="x">770</property>
+            <property name="y">33</property>
           </packing>
         </child>
         <child>
@@ -275,7 +296,7 @@
           </object>
           <packing>
             <property name="x">200</property>
-            <property name="y">375</property>
+            <property name="y">450</property>
           </packing>
         </child>
         <child>
@@ -287,7 +308,7 @@
           </object>
           <packing>
             <property name="x">100</property>
-            <property name="y">25</property>
+            <property name="y">120</property>
           </packing>
         </child>
         <child>
@@ -301,7 +322,7 @@
           </object>
           <packing>
             <property name="x">100</property>
-            <property name="y">145</property>
+            <property name="y">240</property>
           </packing>
         </child>
         <child>
@@ -315,11 +336,13 @@
           </object>
           <packing>
             <property name="x">250</property>
-            <property name="y">145</property>
+            <property name="y">240</property>
           </packing>
         </child>
         <child>
           <object class="GtkSpinButton" id="MySpinButton5">
+            <property name="width_request">118</property>
+            <property name="height_request">34</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="adjustment">adjustment5</property>
@@ -327,7 +350,7 @@
           </object>
           <packing>
             <property name="x">100</property>
-            <property name="y">85</property>
+            <property name="y">180</property>
           </packing>
         </child>
         <child>
@@ -341,7 +364,7 @@
           </object>
           <packing>
             <property name="x">100</property>
-            <property name="y">205</property>
+            <property name="y">300</property>
           </packing>
         </child>
         <child>
@@ -353,7 +376,7 @@
           </object>
           <packing>
             <property name="x">250</property>
-            <property name="y">205</property>
+            <property name="y">300</property>
           </packing>
         </child>
         <child>
@@ -365,7 +388,7 @@
           </object>
           <packing>
             <property name="x">250</property>
-            <property name="y">25</property>
+            <property name="y">120</property>
           </packing>
         </child>
         <child>
@@ -377,7 +400,157 @@
           </object>
           <packing>
             <property name="x">250</property>
-            <property name="y">85</property>
+            <property name="y">180</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="MySpinButton10">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="adjustment">adjustment10</property>
+            <signal name="value-changed" handler="MySpinButton10_Changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">450</property>
+            <property name="y">120</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="DesignLabel1">
+            <property name="width_request">118</property>
+            <property name="height_request">22</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Zahlenraum</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 10"/>
+              <attribute name="scale" value="1.3"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">165</property>
+            <property name="y">60</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="DesignLabel2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Nachkommastellen</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 10"/>
+              <attribute name="scale" value="1.3"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">450</property>
+            <property name="y">60</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="MySpinButton11">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="adjustment">adjustment11</property>
+            <signal name="value-changed" handler="MySpinButton11_Changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">450</property>
+            <property name="y">180</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="MySpinButton12">
+            <property name="width_request">118</property>
+            <property name="height_request">34</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="adjustment">adjustment12</property>
+            <signal name="value-changed" handler="MySpinButton12_Changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">450</property>
+            <property name="y">240</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="MySpinButton13">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="adjustment">adjustment13</property>
+            <signal name="value-changed" handler="MySpinButton13_Changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">450</property>
+            <property name="y">300</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="MyLabel2">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Z</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 10"/>
+              <attribute name="scale" value="2"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">575</property>
+            <property name="y">99</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="MyLabel3">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Z</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 10"/>
+              <attribute name="scale" value="2"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">575</property>
+            <property name="y">159</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="MyLabel4">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Z</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 10"/>
+              <attribute name="scale" value="2"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">575</property>
+            <property name="y">219</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="MyLabel5">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Z</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 10"/>
+              <attribute name="scale" value="2"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">575</property>
+            <property name="y">279</property>
           </packing>
         </child>
       </object>

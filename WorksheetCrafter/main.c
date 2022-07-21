@@ -17,7 +17,7 @@
 
 int main(void)
 {
-    worksheed_instanze.init_complete = false;
+    worksheed_instanze.WCO_Worksheet_initWorksheetComplete = false;
 
 
     pthread_t thread_id1;

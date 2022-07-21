@@ -70,13 +70,15 @@ void WCO_Worksheet_Adjust_ChangeWorksheetSettings(struct worksheed *worksheed_po
 
     if(setting == _Baseboard)
     {
-        if (worksheed_pointer->baseboard_flag)
+        if (worksheed_pointer->WCO_Worksheet_baseboardEnableFlag)
         {
-            worksheed_pointer->baseboard_flag = false;
+            worksheed_pointer->WCO_Worksheet_baseboardEnableFlag = false;
         }else{
-            worksheed_pointer->baseboard_flag = true;
+            worksheed_pointer->WCO_Worksheet_baseboardEnableFlag = true;
         }
     }
+
+    worksheed_pointer->WCO_Background_updateWorksheetSettingsComplete = false;
 }
 
 /*
@@ -92,7 +94,7 @@ int WCO_Worksheet_Adjust_InitWorksheetSettings(struct worksheed *worksheed_point
     worksheed_pointer->WCO_Worksheet_zNumberEnableFlag = true;
     worksheed_pointer->WCO_Worksheet_rNumberEnableFlag = false;
 
-    worksheed_pointer->baseboard_flag = true;
+    worksheed_pointer->WCO_Worksheet_baseboardEnableFlag = true;
 
 
     worksheed_pointer->WCO_Worksheet_number1_additionDigit = 3;
@@ -103,10 +105,19 @@ int WCO_Worksheet_Adjust_InitWorksheetSettings(struct worksheed *worksheed_point
     worksheed_pointer->WCO_Worksheet_number2_multiplicationDigit = 3;
     worksheed_pointer->WCO_Worksheet_number1_divisionDigit = 3;
     worksheed_pointer->WCO_Worksheet_number2_divisionDigit = 3;
-    worksheed_pointer->WCO_Worksheet_decimalPlaces = 0;
 
-    worksheed_pointer->update_WCO_Worksheet_decimalPlaces = false;
-    worksheed_pointer->update_number_type = false;
+    worksheed_pointer->WCO_Worksheet_additionDecimalPlaces = 0;
+    worksheed_pointer->WCO_Worksheet_subtractionDecimalPlaces = 0;
+    worksheed_pointer->WCO_Worksheet_multiplicationDecimalPlaces = 0;
+    worksheed_pointer->WCO_Worksheet_divisionDecimalPlaces = 0;
+
+
+    //worksheed_pointer->WCO_Worksheet_decimalPlaces = 0;
+
+    worksheed_pointer->WCO_Worksheet_updateDecimalPlacesComplete = false;
+    worksheed_pointer->WCO_Background_updateWorksheetSettingsComplete = false;
+
+    worksheed_pointer->WCO_GUI_controllCreatButtonFlag = true;
 
     return 1;
 }

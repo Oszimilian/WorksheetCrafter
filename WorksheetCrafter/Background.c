@@ -16,7 +16,7 @@ void *WCO_Background_Handle()
 {
     while(1)
     {
-        while(!worksheed_instanze.init_complete);
+        while(!worksheed_instanze.WCO_Worksheet_initWorksheetComplete);
 
         WCO_Background_Controll_DecimalPlaces(&worksheed_instanze);
 
@@ -24,9 +24,13 @@ void *WCO_Background_Handle()
     }
 }
 
+/**********************************************************************************************************************************************************************************/
+/*
+*
+*/
 void WCO_Background_Controll_DecimalPlaces(struct worksheed *worksheed_pointer)
 {
-    if (!worksheed_pointer->update_WCO_Worksheet_decimalPlaces)
+    if (!worksheed_pointer->WCO_Worksheet_updateDecimalPlacesComplete)
     {
         int max_range;
         int min_range = 1;
@@ -39,13 +43,17 @@ void WCO_Background_Controll_DecimalPlaces(struct worksheed *worksheed_pointer)
 
         gtk_spin_button_set_range(GTK_SPIN_BUTTON(MySpinButton1), (double)min_range, (double)max_range);
 
-        worksheed_instanze.update_WCO_Worksheet_decimalPlaces = true;
+        worksheed_instanze.WCO_Worksheet_updateDecimalPlacesComplete = true;
     }
 }
 
+/*
+*   This function is resbonsible for the visibility of specific buttons
+*   If a button with a systemchange function is pressed this funcition locks at the new conditions
+*/
 void WCO_Background_Controll_Visibility(struct worksheed *worksheed_pointer)
 {
-    if (!worksheed_pointer->update_number_type)
+    if (!worksheed_pointer->WCO_Background_updateWorksheetSettingsComplete)
     {
         if (worksheed_pointer->WCO_Worksheet_zNumberEnableFlag && !worksheed_pointer->WCO_Worksheet_rNumberEnableFlag)
         {
@@ -56,6 +64,71 @@ void WCO_Background_Controll_Visibility(struct worksheed *worksheed_pointer)
             gtk_widget_show(MySpinButton1);
         }
 
-        worksheed_pointer->update_number_type = true;
+        if(worksheed_pointer->WCO_Worksheet_additionEnableFlag)
+        {
+            gtk_widget_show(MySpinButton2);
+            gtk_widget_show(MySpinButton8);
+            gtk_widget_show(MySpinButton10);
+            gtk_widget_show(MyLabel2);
+        }else{
+            gtk_widget_hide(MySpinButton2);
+            gtk_widget_hide(MySpinButton8);
+            gtk_widget_hide(MySpinButton10);
+            gtk_widget_hide(MyLabel2);
+        }
+
+        if(worksheed_pointer->WCO_Worksheet_subtractionEnableFlag)
+        {
+            gtk_widget_show(MySpinButton5);
+            gtk_widget_show(MySpinButton9);
+            gtk_widget_show(MySpinButton11);
+            gtk_widget_show(MyLabel3);
+        }else{
+            gtk_widget_hide(MySpinButton5);
+            gtk_widget_hide(MySpinButton9);
+            gtk_widget_hide(MySpinButton11);
+            gtk_widget_hide(MyLabel3);
+        }
+
+        if(worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag)
+        {
+            gtk_widget_show(MySpinButton3);
+            gtk_widget_show(MySpinButton4);
+            gtk_widget_show(MySpinButton12);
+            gtk_widget_show(MyLabel4);
+        }else{
+            gtk_widget_hide(MySpinButton3);
+            gtk_widget_hide(MySpinButton4);
+            gtk_widget_hide(MySpinButton12);
+            gtk_widget_hide(MyLabel4);
+        }
+
+        if(worksheed_pointer->WCO_Worksheet_divisonEnableFlag)
+        {
+            gtk_widget_show(MySpinButton6);
+            gtk_widget_show(MySpinButton7);
+            gtk_widget_show(MySpinButton13);
+            gtk_widget_show(MyLabel5);
+        }else{
+            gtk_widget_hide(MySpinButton6);
+            gtk_widget_hide(MySpinButton7);
+            gtk_widget_hide(MySpinButton13);
+            gtk_widget_hide(MyLabel5);
+        }
+
+        if( !worksheed_pointer->WCO_Worksheet_additionEnableFlag &&
+            !worksheed_pointer->WCO_Worksheet_subtractionEnableFlag &&
+            !worksheed_pointer->WCO_Worksheet_multiplicationEnableFlag&&
+            !worksheed_pointer->WCO_Worksheet_divisonEnableFlag)
+        {
+            worksheed_pointer->WCO_GUI_controllCreatButtonFlag = false;
+            gtk_widget_hide(MyButton1);
+            WCO_GUI_ClosePDFViewer(&worksheed_instanze);
+        }else{
+            worksheed_pointer->WCO_GUI_controllCreatButtonFlag = true;
+            gtk_widget_show(MyButton1);
+        }
+
+        worksheed_pointer->WCO_Background_updateWorksheetSettingsComplete = true;
     }
 }
